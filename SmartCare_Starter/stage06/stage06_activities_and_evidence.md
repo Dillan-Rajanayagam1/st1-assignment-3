@@ -2,10 +2,10 @@
 
 Complete this one group record. Link actual issues, diffs, tests and reviews; avoid copying entire histories. Blank fields are intentional. Duplicate rows as needed. Use synthetic data only. Every member records their own meaningful contribution. Do not invent results, reviews or Copilot use.
 
-- Group/tutorial: Tue 1:30 - 3:30 Group 5
-- Members, GitHub usernames and cohorts: [Andy Lieu, Dillan Rajanayagam, Kamalpreet Singh, Kyle Carasig]
-- Repository URL: [https://github.com/Dillan-Rajanayagam1/st1-assignment-3]
-- Starting SHA: [dd0d9ec417c73d6fd881f1b8b499aea2b5f960c7]
+- Group/tutorial: [response]
+- Members, GitHub usernames and cohorts: [response]
+- Repository URL: [response]
+- Starting SHA: [response]
 
 ## A Requirement to issue activities
 
