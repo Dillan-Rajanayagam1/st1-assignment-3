@@ -2,30 +2,34 @@
 
 Complete this one group record. Link actual issues, diffs, tests and reviews; avoid copying entire histories. Blank fields are intentional. Duplicate rows as needed. Use synthetic data only. Every member records their own meaningful contribution. Do not invent results, reviews or Copilot use.
 
-- Group/tutorial: [response]
-- Members, GitHub usernames and cohorts: [response]
-- Repository URL: [response]
-- Starting SHA: [response]
+- Group/tutorial: Tue 1:30 - 3:30 Group 5
+- Members, GitHub usernames and cohorts: [Andy Lieu, Dillan Rajanayagam, Kamalpreet Singh, Kyle Carasig]
+- Repository URL: [https://github.com/Dillan-Rajanayagam1/st1-assignment-3]
+- Starting SHA: [dd0d9ec417c73d6fd881f1b8b499aea2b5f960c7]
 
 ## A Requirement to issue activities
 
 ### FR-02 Patient Search
 
-- Title: [response]
-- Context: [response]
-- Requirement: [response]
-- Acceptance criteria: [response]
-- Scope: [response]
-- Definition of Done: [response]
-- Owner: [response]
-- Actual issue link: [response]
+- Title: [Find a registered patient by ID]
+- Context: [Patients can already be registered in the shared in-memory
+store, but PatientService.find_patient is unfinished. The service needs to retrieve the correct registered patient and report invalid or unknown IDs clearly.]
+- Requirement: [FR-02 Patient Search]
+- Acceptance criteria: [Searching a patient ID returns the same Patient object held in the data storage]
+- Scope: [Implement PatientService.find_patient in services.py and add focused patient-lookup tests in tests/test_services.py. Use the existing shared store and its validation. Do not add name search, fuzzy search, authentication or unrelated refactoring.]
+- Definition of Done: [The feature meets the acceptance criteria, and meaningful tests confirm it works. All eight original tests and the new tests pass. The pull request links to this issue and is reviewed and approved by another group member. The human review is recorded before comparing it with copilot's feedback. After the merge, everyone uploads their copy of main, runs the tests, and record the results in the evidence file ]
+- Owner: [Dillan Rajanayagam]
+- Actual issue link: [https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/1]
 
 ### FR-06 Appointment Cancellation with FR-07 retained history
 
-- Title: [response]
-- Context: [response]
-- Requirement: [response]
-- Acceptance criteria: [response]
+- Title: [Cancel a scheduled appointment and retain its history]
+- Context: [Appointment can already be booked and retrieved, but AppointmentService.cancel.appointment is unfinished We need to complete the service so scheduled appointment can be cancelled without deleting their records or bypassing the domain rules]
+- Requirement: [FR-06 Appointment cancellation and Fr-07 Retaining its history]
+- Acceptance criteria: [
+    1. Cancelling an existing SCEDULED appointment changes its status to CANCELLED
+    2. The service returns the same Appointment object stored in the data storage, not replacement.
+]
 - Scope: [response]
 - Definition of Done: [response]
 - Owner: [response]
