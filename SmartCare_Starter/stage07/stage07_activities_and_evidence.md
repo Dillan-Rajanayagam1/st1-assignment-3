@@ -1,6 +1,6 @@
 # Stage 7 Testing and Verification Record
 
-Group/tutorial: [complete]  Members/cohorts: [complete]
+Group/tutorial: Tue 1:30 - 3:30 Group 5  Members/cohorts: [complete]
 Requirements baseline: SmartCare A3 Requirements Baseline 2026, revision 2.
 Use the same project/. Link actual evidence; keep responses concise. Blank fields are for your group. Copy rows only as needed.
 
@@ -12,12 +12,12 @@ All Assignment 3 stage materials are provided from the beginning. Complete this 
 
 For each requirement, propose one positive test, one negative test and the key assertion.
 
-| Requirement | Positive test | Negative test | Key assertion |
-|---|---|---|---|
-| FR-01 Register patient | [response] | [response] | [response] |
-| FR-05 Prevent practitioner conflict | [response] | [response] | [response] |
-| FR-06 Cancel appointment | [response] | [response] | [response] |
-| FR-07 Retain cancelled history | [response] | [response] | [response] |
+| Requirement | Positive test                                               | Negative test                                     | Key assertion |
+|---|-------------------------------------------------------------|---------------------------------------------------|---|
+| FR-01 Register patient | [response]                                                  | [response]                                        | [response] |
+| FR-05 Prevent practitioner conflict | Test if you can book the same practitioner at the same time | Booking a different practitioner at the same time | [response] |
+| FR-06 Cancel appointment | [response]                                                  | [response]                                        | [response] |
+| FR-07 Retain cancelled history | [response]                                                  | [response]                                        | [response] |
 
 ### Activity 2 Strong or weak assertion
 
