@@ -28,54 +28,60 @@ store, but PatientService.find_patient is unfinished. The service needs to retri
 - Requirement: [FR-06 Appointment cancellation and Fr-07 Retaining its history]
 - Acceptance criteria: [
     1. Cancelling an existing SCEDULED appointment changes its status to CANCELLED
-    2. The service returns the same Appointment object stored in the data storage, not replacement.
+    2. The service returns the same Appointment object stored in the data storage, not a replacement.
+    3. The cancelled appointment remains in the store and can still be retieved using its ID
+    4. A valid but unknown appointment ID raises LookupError.
+    5. A blank or invalid appointment ID raises ValueError
+    6. Cancelling an already CANCELLED appointment raieses ValueError and leaves its status unchanged 
+    7. Cancelling a COMPLETED appointment raieses ValueError and leaves its status unchanged 
+    8. Existing booking and practitioner-confilct behaviour continues to work 
 ]
-- Scope: [response]
-- Definition of Done: [response]
-- Owner: [response]
-- Actual issue link: [response]
+- Scope: [Complete AppointmentService.cancel.appointment in project/smartcaare/services.py and add cancellation tests in project/tests/test_services.py. Use the existing storage and the Appointment.cancel domain method. Do not delete appointments, directly change protected state, create replacement records or add unrelated features or dependencies]
+- Definition of Done: [The acceptance criteria are met and checked with meaningful tests. All original eight tests and the full available test suite pass. Human review observations are recorded before using copilot assistance, and feedback is resolved before merging. Significant copilot assistance is documented. After merging, everyone updates main, runs the full tests and record the results, tested code SHA and review evidence]
+- Owner: [Dillan Rajanayagam]
+- Actual issue link: [https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2]
 
 ## B Commit quality
 
 | Original example | Strong or Weak | Reason |
 |---|---|---|
-| changes | [select] | [response] |
-| final version | [select] | [response] |
-| Add patient search by ID | [select] | [response] |
-| fix stuff | [select] | [response] |
-| Prevent cancellation of completed appointments | [select] | [response] |
+| changes | [Weak] | [It does not explain what changed or why, so teammates would need to inspect the difference to understand the commit] |
+| final version | [Weak] | [It says the work is finished but does not describe what was added or fixed. It is also unclear what "Final" means] |
+| Add patient search by ID | [Strong] | [It clearly describes the feature that is added and suggests one focused change] |
+| fix stuff | [Weak] | [It is too vague. It does not identify the problem or explain what actually was fixed] |
+| Prevent cancellation of completed appointments | [Strong] | [It describes a specific behaviour being enforced, making the purpose of the change clear] |
 
 ## C Over scoped PR review
 
 A cancellation PR also renames unrelated patient fields, restructures unrelated code and adds a new dependency.
 
-- Scope concerns: [response]
-- Responsibility and architecture concerns: [response]
-- Testing and review concerns: [response]
-- Changes to remove or separate, with reasons: [response]
+- Scope concerns: [The PR includes changes that are not needed for appointment cancellation. Remaining patient fields, restructuring unrelated code and adding a dependency make the change larger than the linked issue requires]
+- Responsibility and architecture concerns: [Cancellation should use the existing service, shared data store and Appointment.cancel method. The Appointment object should control its own state changes. We would check that the restructuring does not move these rules into the wrong class or bypass them. The new dependency also needs justification because Stage 6 is meant to preserve the existing runtime dependencies]
+- Testing and review concerns: [Mixing several kinds of changes makes it harder to see which lines implement cancellation and shich might introduce unrelated bugs. Remaining fields could affect other code that uses them. Passing tests alone would not prove that the extra changes are safe or needed. The reviewer should check the actual difference and check cancellation status, same object return, reatined retrival, invalid IDs and rejected state changes, while keeping the original tests intact]
+- Changes to remove or separate, with reasons: [Keep this PR focused on the cancellation service, its tests and directly related evidence. Remove the unrealted patient field renaming and code restruturing from this PR. If those changes are genuinely useful, propose them through separate issues and PRs so they can be justified, tested and reviewed indpendently]
 
 ## D Challenge a weak Copilot review
 
 GitHub Copilot says: "Looks good; tests pass."
 
-- Missing evidence: [response]
-- Follow-up review question 1: [response]
-- Follow-up review question 2: [response]
-- Follow-up review question 3: [response]
-- Follow-up review question 4: [response]
-- Follow-up review question 5: [response]
+- Missing evidence: [The review does not explain which changed lines were checked, how they meet the acceptance criteria, or which tests support the conclusion. It also gives no test command, observed result or tested code SHA. we cannot tell whether invalid inputs, obect identity, retained appointment history and class responsibilities were checked, or whether unrelated changes were included]
+- Follow-up review question 1: [Which changed lines meet each acceptance criterion, and are there any criteria that have not been covered]
+- Follow-up review question 2: [What test command, working directory, observed result and code SHA support the claim that tests pass?]
+- Follow-up review question 3: [Which tests chack invalid and unknown IDs, and do their assertions check the specific exceptions required by the service contracts]
+- Follow-up review question 4: [Which assertions show that cancelling an appointment returns the same stored object, changes its status to CANCELLED and leaves it retrievable afterwards?]
+- Follow-up review question 5: [Where do the code and tests show that repeated cancelletion and cancellation of a COMPLETED appointment raise ValueError without changing the appointment's state?]
 - Additional questions if useful: [response]
 
 ## E Team workflow agreement
 
 | Practice | Team agreement |
 |---|---|
-| Branch naming | [response] |
-| Commit message convention | [response] |
-| PR size | [response] |
-| Another-member review requirement | [response] |
-| Merge rule | [response] |
-| Significant Copilot disclosure rule | [response] |
+| Branch naming | [Use short, descriptive names such as feeature / patient lookup] |
+| Commit message convention | [Write clear messages the describe what changed, such as "Add patient search by ID". Keep each commit focused on a meaningful message and not vague ones] |
+| PR size | [Keep each PR focused on one issue, including its implementation, test and related evidence] |
+| Another-member review requirement | [Every PR must be reviewed by at least one group member who did not make it. The reviewer check the actual difference against the requirements, acceptance criteria, and tests] |
+| Merge rule | [Merge into main only when the acceptance criteria are met, all available tests pass, feedback is resolved, the required copilot comparison is recorded and another member has approved] |
+| Significant Copilot disclosure rule | [Record significant copilot help in the PR and section H, including its purpose, output summary, our chhecks and whether we acccepted] |
 
 ## F Issue and backlog index
 
@@ -83,8 +89,8 @@ Create at least two focused issues. Add a linked practitioner-lookup issue or an
 
 | Issue link | Requirement | Owner | Acceptance criteria or precise link | Status |
 |---|---|---|---|---|
-| [issue 1] | [response] | [response] | [response] | [response] |
-| [issue 2] | [response] | [response] | [response] | [response] |
+| [https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/1] | [FR 02 patient Search] | [Kyle (KhenZ07)] | [response] | [done] |
+| [https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2] | [FR 06 Appointment Cancellation and FR 07 Retained History] | [Kyle (KhenZ07)] | [response] | [done] |
 
 ## G Pull request evidence
 
