@@ -1,6 +1,6 @@
 # Stage 7 Testing and Verification Record
 
-Group/tutorial: Tue 1:30 - 3:30 Group 5  Members/cohorts: [complete]
+Group/tutorial: Tue 1:30 - 3:30 Group 5  Members/cohorts: [kamal]
 Requirements baseline: SmartCare A3 Requirements Baseline 2026, revision 2.
 Use the same project/. Link actual evidence; keep responses concise. Blank fields are for your group. Copy rows only as needed.
 
