@@ -1,8 +1,9 @@
 # Stage 7 Testing and Verification Record
 
-Group/tutorial: Tue 1:30 - 3:30 Group 5  Members/cohorts: [complete]
+Group/tutorial: [Tue 1:30 - 3:30 Group 5]  
+Members/cohorts: [complete]
 Requirements baseline: SmartCare A3 Requirements Baseline 2026, revision 2.
-Use the same project/. Link actual evidence; keep responses concise. Blank fields are for your group. Copy rows only as needed.
+Use the same project/. Link actual evidence; keep responses concise.
 
 All Assignment 3 stage materials are provided from the beginning. Complete this stage only after the previous applicable stage has been integrated, verified and recorded. Use this supplied record in stage07/ in your EXISTING repository. Preserve project/, all earlier tests, records and responses. Do not download another starter or copy staff solutions.
 
@@ -12,12 +13,12 @@ All Assignment 3 stage materials are provided from the beginning. Complete this 
 
 For each requirement, propose one positive test, one negative test and the key assertion.
 
-| Requirement | Positive test                                               | Negative test                                     | Key assertion |
-|---|-------------------------------------------------------------|---------------------------------------------------|---|
-| FR-01 Register patient | [response]                                                  | [response]                                        | [response] |
+| Requirement | Positive test                                            | Negative test                                     | Key assertion |
+|---|----------------------------------------------------------|---------------------------------------------------|---|
+| FR-01 Register patient | [response]                                               | [response]                                        | [response] |
 | FR-05 Prevent practitioner conflict | Test if you can book the same practitioner at the same time | Booking a different practitioner at the same time | [response] |
-| FR-06 Cancel appointment | [response]                                                  | [response]                                        | [response] |
-| FR-07 Retain cancelled history | [response]                                                  | [response]                                        | [response] |
+| FR-06 Cancel appointment | [response]                                               | [response]                                        | [response] |
+| FR-07 Retain cancelled history | [response]                                               | [response]                                        | [response] |
 
 ### Activity 2 Strong or weak assertion
 
@@ -177,28 +178,28 @@ Record actual work in test design, implementation, review, traceability, diagnos
 ## N Formative Questions
 
 1. What question does verification answer?
-[response]
+[Verification answers the question "Are we building this right?" Verification is checking if the code, design, and data meets specific requirements]
 
 2. What question does validation answer?
-[response]
+[Validation answers the questions "Is the data acceptable and safe to use?" Validation is the process of checking and verifying data to ensure it meets correct rules, formats, and constraints before the code is executed.]
 
 3. What is a unit test?
-[response]
+[A unit test is a piece of code that tests the smallest piece of software program (e.g. a single function or method) in isolation to make sure it works as intended]
 
 4. What is a pytest fixture?
-[response]
+[A pytest fixture is a reusable function designed to set up an environment, prepare test data, or manage external resources before the test runs, and cleans them up after it finishes]
 
 5. What is parametrisation in pytest?
-[response]
+[Parametrisation in pytest is a feature that allows you to run a single test function multiple times with different sets of data ]
 
 6. What is regression testing?
-[response]
+[Regression testing is the process of rerunning software tests after code changes, bug fixes, or updates to ensure that existing features still work as intended and that no new bugs are introduced]
 
 7. What does code coverage tell us, and what does it not prove?
-[response]
+[Code coverage tells you which part of your source code were executed during testing, but it doesn't prove that your software works correctly or is free of bugs]
 
 8. What makes an assertion weak?
-[response]
+[An assertion is weak if it can be easily bypassed, handles error incorrectly, or test conditions that are prone to changing]
 
 9. What is the appropriate role of GitHub Copilot as a test assistant?
 [response]
