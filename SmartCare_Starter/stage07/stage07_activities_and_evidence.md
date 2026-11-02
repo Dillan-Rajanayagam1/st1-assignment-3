@@ -13,36 +13,48 @@ All Assignment 3 stage materials are provided from the beginning. Complete this 
 
 For each requirement, propose one positive test, one negative test and the key assertion.
 
-| Requirement | Positive test                                            | Negative test                                     | Key assertion |
-|---|----------------------------------------------------------|---------------------------------------------------|---|
-| FR-01 Register patient | [response]                                               | [response]                                        | [response] |
-| FR-05 Prevent practitioner conflict | Test if you can book the same practitioner at the same time | Booking a different practitioner at the same time | [response] |
-| FR-06 Cancel appointment | [response]                                               | [response]                                        | [response] |
-| FR-07 Retain cancelled history | [response]                                               | [response]                                        | [response] |
+| Requirement | Positive test                                                        | Negative test                                                     | Key assertion                                                                        |
+|---|----------------------------------------------------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| FR-01 Register patient | Register a patient with a valid ID and name                          | Register a patient with an empty name                             | Valid patient is saved; invalid patient raise ValueError                             |
+| FR-05 Prevent practitioner conflict | Book two appointments with different  practitioners at the same time | Book two appointments with the same practitioner at the same time | Different practitioners are accepted; conflicting booking is rejected                |
+| FR-06 Cancel appointment | Cancel an exisiting appointment                                      | Cancel an appointment that doesn't exist                          | Existing appointment is cancelled; missing appointment raises ValueError             |
+| FR-07 Retain cancelled history | Cancel an appointment and retrieve it again                          | Attempt to retrieve an appointment ID that was never created      | Cancelled appointment remains stored with cancelled status; unkown ID is no returned |
 
 ### Activity 2 Strong or weak assertion
 
 For each, select Strong for stated behaviour or Weak/unclear and explain why. State the behaviour and limits.
 
 `assert True`
-Judgement: [Strong for stated behaviour / Weak/unclear]  Why: [response]
+Judgement:  Weak/unclear  Why: It always passes and doesn't check SmartCare behaviour
 
 `assert appointment is not None`
-Judgement: [Strong for stated behaviour / Weak/unclear]  Why: [response]
+Judgement: Weak/unclear  Why: It only checks that an object is exists, not that its details are correct
 
 `assert appointment.status == AppointmentStatus.CANCELLED`
-Judgement: [Strong for stated behaviour / Weak/unclear]  Why: [response]
+Judgement: Strong for stated behaviour  Why: It checks the exact cancellation status, assuming the cancellation requirements are met
 
 `assert len(results) > 0`
-Judgement: [Strong for stated behaviour / Weak/unclear]  Why: [response]
+Judgement: Weak/unclear  Why: It checks that something was returned but not whether the correct appointment was found
 
 `assert data_store.find_appointment('A1') is appointment`
-Judgement: [Strong for stated behaviour / Weak/unclear]  Why: [response]
+Judgement: Strong for stated behaviour  Why: It checks that the exact appointment object is retrieved. It doesn't prove correct field values
 
 ### Activity 3 Boundary thinking
 
 Design boundary or edge cases for blank identifiers, whitespace-only names, same-time practitioner bookings, cancelled appointments and invalid status transitions.
-For each input/state, expected result and supporting contract: [response]
+For each input/state, expected result and supporting contract: 
+
+| Input                                   | Expected Result                                                         | Supporting Contract                                                    |
+|-----------------------------------------|-------------------------------------------------------------------------|------------------------------------------------------------------------|
+| Blank Patient ID                        | Reject registration or booking                                          | Patient ID must be valid                                               |
+| Whitespace-only patient name            | Reject the patient                                                      | Name must contain valid text                                           |
+| Same Practitioner and same time         | Reject second booking                                                   | Practitioner cannot have conflicting appointments                      |
+| Same Practitioner and different time    | Accept booking                                                          | Different booking times do not clash                                   |
+| Different Practitioner and same time    | Accept booking                                                          | Conflict rule only applies to the practitioner, not every appointment  |
+| Cancelled appointment                   | Keep history and allow the practitioner to be booked again at that time | Cancelled appointments are recorded but are not longer active bookings |
+| Cancel an already cancelled appointment | Reject or return a defined result                                       | Repeated cancellation behaviour needs a documented contract            |
+| Update appointment to an invalid status | Reject the transition                                                   | Appointment status must be one of the supported values                 |
+| Cancel an unkown appointment            | Raise ValueError                                                        | Service must not modify unrelated appointments                         |
 
 ### Activity 4 Critique GitHub Copilot tests
 
