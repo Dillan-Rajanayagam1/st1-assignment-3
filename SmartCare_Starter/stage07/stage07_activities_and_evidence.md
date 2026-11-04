@@ -13,12 +13,12 @@ All Assignment 3 stage materials are provided from the beginning. Complete this 
 
 For each requirement, propose one positive test, one negative test and the key assertion.
 
-| Requirement | Positive test                                                        | Negative test                                                     | Key assertion                                                                        |
-|---|----------------------------------------------------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| FR-01 Register patient | Register a patient with a valid ID and name                          | Register a patient with an empty name                             | Valid patient is saved; invalid patient raise ValueError                             |
+| Requirement                         | Positive test                                                        | Negative test                                                     | Key assertion                                                                        |
+|-------------------------------------|----------------------------------------------------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| FR-01 Register patient              | Register a patient with a valid ID and name                          | Register a patient with an empty name                             | Valid patient is saved; invalid patient raise ValueError                             |
 | FR-05 Prevent practitioner conflict | Book two appointments with different  practitioners at the same time | Book two appointments with the same practitioner at the same time | Different practitioners are accepted; conflicting booking is rejected                |
-| FR-06 Cancel appointment | Cancel an exisiting appointment                                      | Cancel an appointment that doesn't exist                          | Existing appointment is cancelled; missing appointment raises ValueError             |
-| FR-07 Retain cancelled history | Cancel an appointment and retrieve it again                          | Attempt to retrieve an appointment ID that was never created      | Cancelled appointment remains stored with cancelled status; unkown ID is no returned |
+| FR-06 Cancel appointment            | Cancel an exisiting appointment                                      | Cancel an appointment that doesn't exist                          | Existing appointment is cancelled; missing appointment raises ValueError             |
+| FR-07 Retain cancelled history      | Cancel an appointment and retrieve it again                          | Attempt to retrieve an appointment ID that was never created      | Cancelled appointment remains stored with cancelled status; unkown ID is no returned |
 
 ### Activity 2 Strong or weak assertion
 
@@ -60,34 +60,46 @@ For each input/state, expected result and supporting contract:
 
 GitHub Copilot generates five tests, all of which pass. Two only assert that objects are not None, one asserts True, and two assume SMS notifications exist. Identify what is wrong and rewrite the test intentions.
 
-| Candidate | What is wrong | Rewritten test intention |
-|---|---|---|
-| 1 | [response] | [response] |
-| 2 | [response] | [response] |
-| 3 | [response] | [response] |
-| 4 | [response] | [response] |
-| 5 | [response] | [response] |
+| Candidate                         | What is wrong                                                        | Rewritten test intention                                                             |
+|-----------------------------------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| 1. assert True                    | Does not test any behaviour                                          | Verify that registering a valid patient stores the expected patient details          |
+| 2. assert appointment is not None | Does not check appointment correctness                               | Verify the appointment has the correct patient, practitioner, time and inital status |
+| 3. assert appointment is not None | Repeats a weak assertion and may pass even if the operation is wrong | Verify cancellation changes the appointment status to cancelled                      |
+| 4. SMS notification is expected   | SMS functionality is not in the SmartCare requirements               | Test the required booking result without assuming notifications exist                |
+| 5. SMS notification is expected   | Invents a feature and may depend on an unsupported external service  | Verify that an invalid booking is rejected and no appointment is added               |
 
 ### Tutorial exit question
 
 Why can 100% code coverage coexist with poor software verification?
-[response]
+100% code coverage means every line of code was used during testing, but it doesn't prove that the code works correctly. Tests may use weak assertions, fail to check important outcomes or ignore invalid inputs. For example, a test that executes the booking function and only asserts True could achieve coverage without checking whether the appointment was actually booked correctly. Good verification needs meaningful assertions that compare the actual result with the expected behaviour.
 
 ## B Requirement to Test Traceability Matrix
 
 Assign TEST IDs before implementation or generation. Use canonical AC IDs with their actual meaning; quote supporting revision 2 contracts when no canonical AC is assigned. Blank-ID validation is not AC-01.2. Identify supplied versus student-authored evidence.
 
-| Requirement | Acceptance criterion | Test ID | Test type | Test name / location | Expected behaviour | Result / observed status | Supplied or student-authored |
-|---|---|---|---|---|---|---|---|
-| [complete] | [complete] | [complete] | [complete] | [complete] | [complete] | [complete] | [complete] |
+| Requirement | Acceptance criterion                                    | Test ID | Test type | Test name / location                          | Expected behaviour                                    | Result / observed status                       | Supplied or student-authored |
+|-------------|---------------------------------------------------------|---------|-----------|-----------------------------------------------|-------------------------------------------------------|------------------------------------------------|------------------------------|
+| FR-01       | Valid patient can be registered                         | TEST-01 | Positive  | test_register_valid_patient                   | Patient details are stored                            | Patient can be retrieved with matching details | Student-authored             |
+| FR-01       | Invalid name is rejected                                | TEST-02 | Negative  | test_blank_patient_name_rejected              | ValueError is raised                                  | Validation Error; no patient stored            | Student-authored             |
+| FR-05       | Practitioner cannot have overlapping active appointment | TEST-03 | Negative  | test_same_practitioner_same_time_rejected     | Conflicting appointment is rejected                   | Second booking rejected                        | Student-authored             |
+| FR-05       | Different practitioners can be booked at the same time  | TEST-04 | Positive  | test_different_practitioner_same_time_allowed | Both appointments are stored                          | Both bookings accepted                         | Student-authored             |
+| FR-06       | Existing appointments can be cancelled                  | TEST-05 | Positive  | test_cancel_changes_status                    | Appointment status becomes cancelled                  | Status becomes cancelled                       | Student-authored             |
+| FR-06       | Unknown appointment cannot be cancelled                 | TEST-06 | Negative  | test_cancel_unknown_appointment_rejected      | ValueError is raised                                  | ValueError; no existing appoint changed        | Student-authored             |
+| FR-07       | Cancelled appointment stays in history                  | TEST-07 | Positive  | test_cancelled_appointment_retained           | Appointment remains retrievable with cancelled status | Appointment still exists and is cancelled      | Student-authored             |
 
 ## C Test Design
 
 Use descriptive test names such as test_cancel_changes_status() or test_blank_patient_id_is_rejected(). Explain what new evidence each case adds.
 
-| Test ID | Requirement | Acceptance criterion | Positive / Negative / Boundary | Test intention | Observable result expected | Added evidence beyond supplied tests |
-|---|---|---|---|---|---|---|
-| [complete] | [complete] | [complete] | [complete] | [complete] | [complete] | [complete] |
+| Test ID | Requirement | Acceptance criterion                | Positive / Negative / Boundary | Test intention                               | Observable result expected                     | Added evidence beyond supplied tests |
+|---------|-------------|-------------------------------------|--------------------------------|----------------------------------------------|------------------------------------------------|--------------------------------------|
+| TEST-01 | FR-01       | Valid patient registration succeeds | Positive                       | Register a patient with valid details        | Patient can be retrieved with matching details | Checks stored values                 |
+| TEST-02 | FR-01       | Invalid name is rejected            | Negative                       | Register a patient with whitespace only name | Validation Error; no patient stored            | Tests whitespace boundary            |
+| TEST-03 | FR-05       | Conflicting booking rejected        | Negative                       | Book same practitioner and time twice        | Second booking rejected                        | Checks conflict rules                |
+| TEST-04 | FR-05       | Non conflicting booking accepted    | Positive                       | Book different practitioners at same time    | Both bookings accepted                         | Checks conflict is not too broad     |
+| TEST-05 | FR-06       | Cancellation updates status         | Positive                       | Cancel existing appointment                  | Status becomes cancelled                       | Checks actual status                 |
+| TEST-06 | FR-06       | Unknown appointment rejected        | Negative                       | Cancel unknown ID                            | Cancel unknown ID                              | Checks error and state               |
+| TEST-07 | FR-07       | Cancelled history is retained       | Positive                       | Cancel then retrieve appointment             | Cancel then retrieve appointment               | Checks history behaviour             |
 
 ## D Arrange Act Assert Record
 
