@@ -51,7 +51,7 @@ Complete this one group record. Link actual issues, diffs, tests and reviews; av
 
 - Title: Find a registered practitioner by ID
 - Context: PractitionerService.find_practitioner is the third unfinished Stage 6 service method and still raises NotImplementedError. Booking and later appointment listing depend on finding the stored practitioner object, so the service lookup needs the same contract as patient lookup.
-- Requirement: Supporting criterion for the Stage 6 service targets: a registered practitioner can be found by practitioner ID. [TO CONFIRM with tutor which FR this is linked to]
+- Requirement: Supporting criterion for the Stage 6 service targets: a registered practitioner can be found by practitioner ID. It is a supporting service operation over practitioners registered under FR-03; FR-03 itself remains the practitioner-registration requirement.
 - Acceptance criteria:
   1. A known practitioner ID returns the same Practitioner object held in the shared data store.
   2. Surrounding whitespace is trimmed, and IDs remain case-sensitive.
@@ -61,7 +61,7 @@ Complete this one group record. Link actual issues, diffs, tests and reviews; av
 - Scope: In scope: PractitionerService.find_practitioner and focused tests in tests/test_services.py. Out of scope: changes to Practitioner, the data store, the console menu and any new dependency.
 - Definition of Done: Same as FR-02.
 - Owner: Kamalpreet Singh (kamal824)
-- Actual issue link: [TO FILL: link after creating the issue]
+- Actual issue link: https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/4
 
 ## B Commit quality
 
@@ -111,7 +111,7 @@ GitHub Copilot says: "Looks good; tests pass."
 |---|---|---|---|---|
 | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/1 | FR-02 Patient search | Kyle Carasig (KhenZ07) | Returns the stored Patient for a known ID; ValueError for blank or invalid IDs; LookupError for an unknown valid ID; no records changed. See section A. | Implemented and merged through PR #3 (merge commit fc2c292). [TO CONFIRM: issue closed] |
 | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2 | FR-06 Appointment cancellation and FR-07 Retained history | Kyle Carasig (KhenZ07) [TO CONFIRM] | Seven criteria in section A: CANCELLED status, same object returned, retained and retrievable, LookupError for unknown, ValueError for invalid IDs and illegal transitions, change made through Appointment.cancel. | Open. Not yet implemented on main; work prepared for feature/appointment-cancellation. [TO UPDATE when merged] |
-| [TO FILL: new issue link] | Practitioner lookup (supporting criterion for the Stage 6 service targets) | Kamalpreet Singh (kamal824) | Returns the stored Practitioner for a known ID; ValueError for blank or invalid IDs; LookupError for an unknown valid ID; no records changed. See section A. | Open. Implemented on feature/practitioner-lookup; PR awaiting another-member review. [TO UPDATE when merged] |
+| https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/4 | Practitioner lookup (supporting criterion for the Stage 6 service targets) | Kamalpreet Singh (kamal824) | Returns the stored Practitioner for a known ID; ValueError for blank or invalid IDs; LookupError for an unknown valid ID; no records changed. See section A. | Implemented and merged through PR #5 (merge commit 220d739). Merged before another-member approval was recorded; see section G. |
 
 ## G Pull request evidence
 
@@ -141,29 +141,29 @@ Repeat this block per PR. Record actual events, not planned approvals.
 - Each member updated main: [TO FILL: each member's name and confirmation that they pulled main]
 - Integrated verification after merge: [TO FILL: command, directory, observed result and SHA from a member's run on main at fc2c292 or later]
 
-### PR [TO FILL: number] — Practitioner lookup
+### PR #5 — Practitioner lookup
 
-- PR link and title: [TO FILL: link] — Add practitioner lookup by ID
-- Linked issue and requirement: [TO FILL: new issue link] — practitioner lookup supporting criterion
+- PR link and title: https://github.com/Dillan-Rajanayagam1/st1-assignment-3/pull/5 — Add practitioner lookup by ID
+- Linked issue and requirement: https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/4 — practitioner lookup supporting criterion (practitioners registered under FR-03)
 - Feature branch: feature/practitioner-lookup
 - Changed behaviour: Implemented PractitionerService.find_practitioner through the shared SmartCareDataStore, following the same contract as patient lookup. It returns the stored Practitioner object and raises LookupError when a valid ID is not registered. Blank or invalid IDs raise ValueError through the store's existing validation. Added eight focused tests covering stored-object identity, trimmed IDs, case sensitivity, an unknown ID and four invalid inputs.
-- Meaningful commits: [TO FILL: commit link] — Add practitioner lookup by ID
+- Meaningful commits: [Add practitioner lookup by ID](https://github.com/Dillan-Rajanayagam1/st1-assignment-3/commit/c23b72218de8afe7f780116708ea1be3aa9e93b5) — changes smartcare/services.py, tests/test_services.py and this record only.
 - Test command, directory and observed result:
   - Directory: SmartCare_Starter/project
-  - Command: `..\..\.venv\Scripts\python.exe -m pytest`
-  - Observed result: [TO FILL from your own run]
-  - Tested code SHA: [TO FILL]
-- Another-member reviewer: [TO FILL: name and GitHub username; must not be the author]
-- Human observations recorded before Copilot: [TO FILL]
-- Requirement, responsibilities, test assertions and unrelated-scope checks: [TO FILL]
-- Key feedback: [TO FILL]
-- Author response/change and verification: [TO FILL]
-- Reviewer recheck and approval: [TO FILL: link to the approving review]
-- Merge outcome and SHA: [TO FILL]
-- Significant Copilot assistance: [TO FILL or "none"]
-- Linked issue closure: [TO FILL]
-- Each member updated main: [TO FILL]
-- Integrated verification after merge: [TO FILL]
+  - Command: `python3 -m pytest`
+  - Observed result: 24 passed in 0.02s (Python 3.15.1, pytest 8.3.5): eight practitioner-lookup cases, eight patient-search cases and the eight starter tests.
+  - Tested code SHA: c23b72218de8afe7f780116708ea1be3aa9e93b5
+- Another-member reviewer: Dillan Rajanayagam (Dillan-Rajanayagam1) was requested as reviewer on GitHub. He looked over the change and told the author verbally that it was fine, but no GitHub approval or written review was recorded before merge. This is a recorded process gap.
+- Human observations recorded before Copilot: Not recorded for this PR.
+- Requirement, responsibilities, test assertions and unrelated-scope checks: The author checked the diff before committing. It contains only the find_practitioner implementation and docstring, the new practitioner tests and this record. The store keeps validation, the service only turns an absent result into LookupError, and no replacement Practitioner is created. The eight starter tests are unchanged.
+- Key feedback: Verbal only: the reviewer said the change was fine. No written feedback on GitHub.
+- Author response/change and verification: No changes were requested.
+- Reviewer recheck and approval: Not recorded on GitHub before merge.
+- Merge outcome and SHA: Merged into main by the author. Merge commit 220d739bd60bf338c5a5923097558639d4a0bfca.
+- Significant Copilot assistance: None (stated in the PR description).
+- Linked issue closure: Issue #4 is linked with "Closes #4" and closes when the PR is merged.
+- Each member updated main: Kamalpreet Singh switched to main and pulled the merge commit. [TO FILL: Dillan, Kyle and Andy confirm they pulled main]
+- Integrated verification after merge: Kamalpreet Singh, directory SmartCare_Starter/project on main at 220d739bd60bf338c5a5923097558639d4a0bfca, command `python3 -m pytest`, observed result 24 passed in 0.02s.
 
 ### PR [TO FILL: number] — Appointment cancellation
 
@@ -264,10 +264,10 @@ Repeat per member. Include only categories that describe actual work; write not 
 
 - Implementation: Implemented PractitionerService.find_practitioner on feature/practitioner-lookup. It delegates to SmartCareDataStore.find_practitioner, so the store's existing validation trims IDs, keeps them case-sensitive and raises ValueError for blank or non-string IDs. The service turns an absent result into LookupError and returns the same stored Practitioner object. No other class was changed.
 - Testing: Added eight practitioner-lookup test cases to tests/test_services.py covering stored-object identity, trimmed IDs, case sensitivity, an unknown ID with the store left unchanged, and four invalid inputs ("", whitespace only, None and a number). The full suite, including the eight unchanged starter tests, was run before review (see the practitioner-lookup PR block in section G).
-- Review: [TO FILL: PR reviewed for another member, if any]
-- Issue refinement: Took ownership of the practitioner-lookup supporting criterion and its acceptance criteria in section A.
+- Review: Checked the PR #5 diff for scope before requesting review. [TO FILL if Kamalpreet reviews another member's PR]
+- Issue refinement: Took ownership of the practitioner-lookup supporting criterion and created issue #4 with its acceptance criteria (https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/4).
 - Design and responsibility discussion: Followed the same pattern as patient lookup so both lookups share one contract. Validation stays in the store and identity stays with the stored object; the service only reports absence as LookupError and does not create a replacement record.
-- Debugging or integration: [TO FILL: pulling main and running the integrated suite after merge]
+- Debugging or integration: Opened PR #5 linked to issue #4, merged it into main (220d739), then pulled main and ran the integrated suite: 24 passed.
 - Documentation or team support: Completed the member details, practitioner-lookup ownership, issue index entry and this contribution record.
 
 ## K Exit question
@@ -327,7 +327,7 @@ Take a focused requirement through a linked issue, feature branch, implementatio
 - Test command: `..\..\.venv\Scripts\python.exe -m pytest`
 - Working directory: SmartCare_Starter/project
 - Observed result: [TO FILL from your own run on the final Stage 6 code SHA]
-- PR and another-member reviewer: PR #3 (no another-member review recorded); [TO FILL: practitioner-lookup PR and reviewer]; [TO FILL: cancellation PR and reviewer]
+- PR and another-member reviewer: PR #3 (no another-member review recorded); PR #5 practitioner lookup (Dillan requested; merged before GitHub approval); [TO FILL: cancellation PR and reviewer]
 - Unresolved issue or none: [TO FILL]
 - Stage 7 handover status: [TO FILL: ready for tutor checkpoint / unresolved work]
 - Final submitted SHA if later than tested SHA: [TO FILL: SHA of the commit that adds this record; the difference from the tested SHA is evidence-only]
