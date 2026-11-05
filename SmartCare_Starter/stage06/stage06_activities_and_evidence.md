@@ -110,7 +110,7 @@ GitHub Copilot says: "Looks good; tests pass."
 | Issue link | Requirement | Owner | Acceptance criteria or precise link | Status |
 |---|---|---|---|---|
 | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/1 | FR-02 Patient search | Kyle Carasig (KhenZ07) | Returns the stored Patient for a known ID; ValueError for blank or invalid IDs; LookupError for an unknown valid ID; no records changed. See section A. | Implemented and merged through PR #3 (merge commit fc2c292). [TO CONFIRM: issue closed] |
-| https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2 | FR-06 Appointment cancellation and FR-07 Retained history | Kamalpreet Singh (kamal824), taken over from Kyle Carasig | Seven criteria in section A: CANCELLED status, same object returned, retained and retrievable, LookupError for unknown, ValueError for invalid IDs and illegal transitions, change made through Appointment.cancel. | Implemented on feature/appointment-cancellation. [TO UPDATE when merged] |
+| https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2 | FR-06 Appointment cancellation and FR-07 Retained history | Kamalpreet Singh (kamal824), taken over from Kyle Carasig | Seven criteria in section A: CANCELLED status, same object returned, retained and retrievable, LookupError for unknown, ValueError for invalid IDs and illegal transitions, change made through Appointment.cancel. | Implemented and merged through PR #7 (merge commit 6a9ee19); issue closed. Merged by another member without a recorded GitHub approval; see section G. |
 | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/4 | Practitioner lookup (supporting criterion for the Stage 6 service targets) | Kamalpreet Singh (kamal824) | Returns the stored Practitioner for a known ID; ValueError for blank or invalid IDs; LookupError for an unknown valid ID; no records changed. See section A. | Implemented and merged through PR #5 (merge commit 220d739). Merged before another-member approval was recorded; see section G. |
 
 ## G Pull request evidence
@@ -165,29 +165,29 @@ Repeat this block per PR. Record actual events, not planned approvals.
 - Each member updated main: Kamalpreet Singh switched to main and pulled the merge commit. [TO FILL: Dillan, Kyle and Andy confirm they pulled main]
 - Integrated verification after merge: Kamalpreet Singh, directory SmartCare_Starter/project on main at 220d739bd60bf338c5a5923097558639d4a0bfca, command `python3 -m pytest`, observed result 24 passed in 0.02s.
 
-### PR [TO FILL: number] — Appointment cancellation
+### PR #7 — Appointment cancellation
 
-- PR link and title: [TO FILL: link] — Cancel appointments through the service and retain history
+- PR link and title: https://github.com/Dillan-Rajanayagam1/st1-assignment-3/pull/7 — Cancel appointments through the service and retain history
 - Linked issue and requirement: https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2 — FR-06 and FR-07
 - Feature branch: feature/appointment-cancellation
 - Changed behaviour: Implemented AppointmentService.cancel_appointment. It finds the stored appointment through the existing find_appointment method, so blank or invalid IDs raise ValueError and unknown IDs raise LookupError. It then calls Appointment.cancel, so the domain object enforces the SCHEDULED-only rule, and returns the same stored object. Nothing is deleted. Added eleven focused test cases in tests/test_services.py covering same-object return, CANCELLED status, retained retrieval with unchanged details, trimmed IDs, an unknown ID, four invalid inputs, repeated cancellation, cancellation of a COMPLETED appointment, and rebooking the freed practitioner slot while the cancelled record is kept. Removed the Stage 7 expected-failure marker from the four service-cancellation tests, which now pass.
-- Meaningful commits: [TO FILL: commit link] — Cancel appointments through the service and retain history
+- Meaningful commits: [Cancel appointments through the service and retain history](https://github.com/Dillan-Rajanayagam1/st1-assignment-3/commit/ab00f6b0a91eaa6c192bdf992b69f7e8a1b33c15)
 - Test command, directory and observed result:
   - Directory: SmartCare_Starter/project
   - Command: `python3 -m pytest`
-  - Observed result: [TO FILL from your own run]
-  - Tested code SHA: [TO FILL]
-- Another-member reviewer: [TO FILL: name and GitHub username; must not be the author]
-- Human observations recorded before Copilot: [TO FILL]
+  - Observed result: 59 passed in 0.04s (Python 3.15.1, pytest 8.3.5)
+  - Tested code SHA: ab00f6b0a91eaa6c192bdf992b69f7e8a1b33c15
+- Another-member reviewer: Kyle Carasig (KhenZ07) was requested as reviewer and merged the PR. No written review or GitHub approval was submitted before the merge; this is recorded as a process gap.
+- Human observations recorded before Copilot: Not recorded for this PR.
 - Requirement, responsibilities, test assertions and unrelated-scope checks: The diff changes only cancel_appointment and its docstring, adds cancellation tests, removes the Stage 7 xfail marker and updates the Stage 6 and Stage 7 records. The service does not set status directly or delete records; Appointment.cancel keeps the state rule. A local check that removed the appointment.cancel() call made seven cancellation tests fail, so the tests detect a missing transition.
-- Key feedback: [TO FILL]
-- Author response/change and verification: [TO FILL]
-- Reviewer recheck and approval: [TO FILL: link to the approving review]
-- Merge outcome and SHA: [TO FILL]
+- Key feedback: None recorded on GitHub.
+- Author response/change and verification: No changes were requested.
+- Reviewer recheck and approval: Not recorded on GitHub.
+- Merge outcome and SHA: Merged into main by Kyle Carasig. Merge commit 6a9ee192a19ac5358977e2017c0817f881f06e42.
 - Significant Copilot assistance: None
-- Linked issue closure: [TO FILL: issue #2 closed]
-- Each member updated main: [TO FILL]
-- Integrated verification after merge: [TO FILL]
+- Linked issue closure: Issue #2 closed by the merge ("Closes #2").
+- Each member updated main: Kamalpreet Singh pulled main at 6a9ee19. [TO FILL: Dillan, Kyle and Andy confirm they pulled main]
+- Integrated verification after merge: Kamalpreet Singh, directory SmartCare_Starter/project on main at 6a9ee192a19ac5358977e2017c0817f881f06e42, command `python3 -m pytest`, observed result 59 passed.
 
 ## H Copilot collaboration record
 
@@ -323,18 +323,18 @@ Take a focused requirement through a linked issue, feature branch, implementatio
 ## M Completion and handover
 
 - Starting SHA: dd0d9ec417c73d6fd881f1b8b499aea2b5f960c7
-- Final Stage 6 code SHA: [TO FILL: main after the cancellation PR is merged]
+- Final Stage 6 code SHA: 6a9ee192a19ac5358977e2017c0817f881f06e42 (merge of PR #7)
 - Test command: `..\..\.venv\Scripts\python.exe -m pytest`
 - Working directory: SmartCare_Starter/project
-- Observed result: [TO FILL from your own run on the final Stage 6 code SHA]
-- PR and another-member reviewer: PR #3 (no another-member review recorded); PR #5 practitioner lookup (Dillan requested; merged before GitHub approval); [TO FILL: cancellation PR and reviewer]
-- Unresolved issue or none: [TO FILL]
-- Stage 7 handover status: [TO FILL: ready for tutor checkpoint / unresolved work]
+- Observed result: 59 passed with `python3 -m pytest` from SmartCare_Starter/project on the final Stage 6 code SHA (this count includes the Stage 7 tests that were merged earlier).
+- PR and another-member reviewer: PR #3 (no another-member review recorded); PR #5 practitioner lookup (Dillan requested; merged before GitHub approval); PR #7 cancellation (Kyle requested; merged by Kyle without a recorded GitHub approval)
+- Unresolved issue or none: No open code issues; all three Stage 6 service operations are implemented and tested. Process gaps: PRs #3, #5 and #7 have no GitHub approval recorded before merge, and the human-first Copilot comparison in sections H and I was not completed.
+- Stage 7 handover status: Ready for the tutor checkpoint. Issue #1 → PR #3, issue #4 → PR #5 and issue #2 → PR #7 can each be traced from issue to merged code and tests.
 - Final submitted SHA if later than tested SHA: [TO FILL: SHA of the commit that adds this record; the difference from the tested SHA is evidence-only]
 
-- [ ] Three Stage 6 service targets completed and checked.
+- [x] Three Stage 6 service targets completed and checked.
 - [x] Original supplied tests retained and passing.
-- [ ] At least two focused issues link requirements and acceptance criteria.
+- [x] At least two focused issues link requirements and acceptance criteria.
 - [ ] Feature work reviewed by another member using the actual diff.
 - [ ] Human-first review and required Copilot comparison recorded.
 - [ ] Feedback resolved and approval recorded before merge.

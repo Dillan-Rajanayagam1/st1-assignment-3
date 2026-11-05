@@ -244,7 +244,7 @@ Run python -m pytest from project/. Retain all accumulated tests. Record the tes
 | Command | Working directory | Code SHA | Passed | Failed | Failure summary | Product defect / test defect / unresolved | Evidence and interpretation |
 |---|---|---|---|---|---|---|---|
 | python3 -m pytest | SmartCare_Starter/project | a41e607a768fcbc7e6e8365d39fa6f64d73e3505 | 44 | 0 (4 xfailed) | No failures. The 4 xfailed tests are the service-cancellation tests. | Unresolved: AppointmentService.cancel_appointment is still a Stage 6 TODO (issue #2), not a product defect in tested code | All 8 starter tests, 16 Stage 6 lookup tests and 20 new Stage 7 tests pass |
-| python3 -m pytest | SmartCare_Starter/project | [TO FILL: cancellation commit SHA] | 59 | 0 | No failures | None | Rerun after cancel_appointment was implemented: 8 starter, 16 lookup, 11 cancellation and 24 Stage 7 tests pass; the 4 former xfail tests now pass |
+| python3 -m pytest | SmartCare_Starter/project | ab00f6b0a91eaa6c192bdf992b69f7e8a1b33c15 (PR #7), rerun on main at 6a9ee19 | 59 | 0 | No failures | None | Rerun after cancel_appointment was implemented: 8 starter, 16 lookup, 11 cancellation and 24 Stage 7 tests pass; the 4 former xfail tests now pass |
 
 Individual test runs and changed-order independence evidence: `python3 -m pytest tests/test_domain.py` (11 passed); `python3 -m pytest tests/test_booking_and_cancellation.py` (9 passed, 4 xfailed); `python3 -m pytest tests/test_booking_and_cancellation.py tests/test_domain.py tests/test_starter.py tests/test_services.py` in reversed file order (44 passed, 4 xfailed). Every test builds its own fresh SmartCareDataStore, so no test depends on another.
 Optional tutor-led demonstration notes: [optional; leave blank if not used]
