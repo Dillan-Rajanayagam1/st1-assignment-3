@@ -7,7 +7,7 @@ Complete this one group record. Link actual issues, diffs, tests and reviews; av
   - Dillan Rajanayagam — Dillan-Rajanayagam1 — [TO FILL: UG/PG]
   - Kyle Carasig — KhenZ07 — [TO FILL: UG/PG]
   - Andy Lieu — [TO FILL: GitHub username] — [TO FILL: UG/PG]
-  - Kamal — [TO FILL: full name, GitHub username] — [TO FILL: UG/PG]
+  - Kamalpreet Singh,kamal824,UG
 - Repository URL: https://github.com/Dillan-Rajanayagam1/st1-assignment-3
 - Starting SHA: dd0d9ec417c73d6fd881f1b8b499aea2b5f960c7 (Add shared SmartCare Assignment 3 starter)
 
