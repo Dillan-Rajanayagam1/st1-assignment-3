@@ -243,7 +243,7 @@ Run python -m pytest from project/. Retain all accumulated tests. Record the tes
 
 | Command | Working directory | Code SHA | Passed | Failed | Failure summary | Product defect / test defect / unresolved | Evidence and interpretation |
 |---|---|---|---|---|---|---|---|
-| python3 -m pytest | SmartCare_Starter/project | [TO FILL: SHA of the Stage 7 tests commit] | 44 | 0 (4 xfailed) | No failures. The 4 xfailed tests are the service-cancellation tests. | Unresolved: AppointmentService.cancel_appointment is still a Stage 6 TODO (issue #2), not a product defect in tested code | All 8 starter tests, 16 Stage 6 lookup tests and 20 new Stage 7 tests pass |
+| python3 -m pytest | SmartCare_Starter/project | a41e607a768fcbc7e6e8365d39fa6f64d73e3505 | 44 | 0 (4 xfailed) | No failures. The 4 xfailed tests are the service-cancellation tests. | Unresolved: AppointmentService.cancel_appointment is still a Stage 6 TODO (issue #2), not a product defect in tested code | All 8 starter tests, 16 Stage 6 lookup tests and 20 new Stage 7 tests pass |
 
 Individual test runs and changed-order independence evidence: `python3 -m pytest tests/test_domain.py` (11 passed); `python3 -m pytest tests/test_booking_and_cancellation.py` (9 passed, 4 xfailed); `python3 -m pytest tests/test_booking_and_cancellation.py tests/test_domain.py tests/test_starter.py tests/test_services.py` in reversed file order (44 passed, 4 xfailed). Every test builds its own fresh SmartCareDataStore, so no test depends on another.
 Optional tutor-led demonstration notes: [optional; leave blank if not used]
@@ -265,7 +265,7 @@ Use links rather than copying GitHub history. Continue the Stage 6 workflow; no 
 |---|---|---|---|---|---|
 | FR-02 patient search (https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/1) | feature/patient-lookup | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/pull/3 | No another-member review recorded | None recorded | Merged (fc2c292); Stage 6 tests retained in this run |
 | Practitioner lookup (https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/4) | feature/practitioner-lookup | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/pull/5 | Dillan requested; verbal only | None recorded | Merged (220d739); Stage 6 tests retained in this run |
-| Stage 7 domain, booking and cancellation tests | feature/stage7-tests | [TO FILL: PR link] | [TO FILL: another member] | [TO FILL] | [TO FILL: merge SHA] |
+| Stage 7 domain, booking and cancellation tests | feature/stage7-tests | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/pull/6 | Dillan requested; he merged it but left no written review or approval | None recorded | Merged by Dillan (fd112f9); 44 passed, 4 xfailed on main |
 
 ## M Contribution Evidence
 
@@ -273,8 +273,8 @@ Record actual work in test design, implementation, review, traceability, diagnos
 
 | Member | Actual contribution | Evidence link |
 |---|---|---|
-| Dillan Rajanayagam | Tutorial activities, traceability and test-design tables, Copilot test-design review and formative answers | Commits b14fa1b, f5421ce, eaec5f1 |
-| Kamalpreet Singh | Wrote tests/test_domain.py and tests/test_booking_and_cancellation.py (20 tests plus 4 expected-failure cancellation tests), ran the regression and order checks, corrected the record to match the code and results | [TO FILL: PR link] |
+| Dillan Rajanayagam | Tutorial activities, traceability and test-design tables, Copilot test-design review and formative answers; merged PR #6 | Commits b14fa1b, f5421ce, eaec5f1; merge fd112f9 |
+| Kamalpreet Singh | Wrote tests/test_domain.py and tests/test_booking_and_cancellation.py (20 tests plus 4 expected-failure cancellation tests), ran the regression and order checks, corrected the record to match the code and results | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/pull/6, commit a41e607 |
 | Kyle Carasig | [TO FILL or not applicable] | |
 | Andy Lieu | [TO FILL or not applicable] | |
 
@@ -312,9 +312,9 @@ Every test must trace to a requirement or documented contract, use a meaningful 
 
 ## O Stage Completion
 
-Tested Stage 7 main SHA: [TO FILL: main SHA after the Stage 7 tests PR is merged]
-Full-suite result: 44 passed, 4 xfailed with `python3 -m pytest` from SmartCare_Starter/project (on the feature branch; rerun on main after merge)
+Tested Stage 7 main SHA: fd112f9b7c298d9a572b7daba932bf441628d863 (merge of PR #6)
+Full-suite result: 44 passed, 4 xfailed with `python3 -m pytest` from SmartCare_Starter/project, on the feature branch at a41e607 and again on main at fd112f9
 Unresolved defects and effect on baseline: AppointmentService.cancel_appointment is still unimplemented (issue #2, Stage 6). Its four service tests are strict expected failures and must have the marker removed once it is implemented.
-Clean working tree and integration evidence: [TO FILL: git status clean and test result on main after merge]
-Stage 8 handover status: Ready once the Stage 7 tests PR is reviewed and merged and issue #2 is resolved; no Stage 8 work assigned yet.
+Clean working tree and integration evidence: Kamalpreet Singh pulled main at fd112f9 and reran the full suite: 44 passed, 4 xfailed. PR #6 was merged by another member (Dillan) but without a written review or approval on GitHub; this is recorded as a process gap.
+Stage 8 handover status: Stage 7 tests are integrated on main. Open item carried forward: issue #2 (service cancellation); when it is implemented, remove the xfail marker from the four service-cancellation tests. No Stage 8 work assigned yet.
 All tutorial/formative responses and traceability/Copilot decisions complete: Yes, with the record corrected to match the actual tests and results.
