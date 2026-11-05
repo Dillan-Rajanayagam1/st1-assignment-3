@@ -4,10 +4,10 @@ Complete this one group record. Link actual issues, diffs, tests and reviews; av
 
 - Group/tutorial: Tue 1:30 - 3:30 Group 5
 - Members, GitHub usernames and cohorts:
-  - Dillan Rajanayagam — Dillan-Rajanayagam1 — [TO FILL: UG/PG]
-  - Kyle Carasig — KhenZ07 — [TO FILL: UG/PG]
-  - Andy Lieu — [TO FILL: GitHub username] — [TO FILL: UG/PG]
-  - Kamal — [TO FILL: full name, GitHub username] — [TO FILL: UG/PG]
+  - Dillan Rajanayagam — Dillan-Rajanayagam1 — UG
+  - Kyle Carasig — KhenZ07 — UG
+  - Andy Lieu — Andy-Lieu — UG
+  - Kamal — [TO FILL: full name, GitHub username] — UG
 - Repository URL: https://github.com/Dillan-Rajanayagam1/st1-assignment-3
 - Starting SHA: dd0d9ec417c73d6fd881f1b8b499aea2b5f960c7 (Add shared SmartCare Assignment 3 starter)
 
@@ -65,13 +65,13 @@ Complete this one group record. Link actual issues, diffs, tests and reviews; av
 
 ## B Commit quality
 
-| Original example | Strong or Weak | Reason |
-|---|---|---|
-| changes | Weak | It does not say what changed or why, so teammates would need to inspect the diff to understand the commit. |
-| final version | Weak | It claims the work is finished but does not describe what was added or fixed, and "final" is unclear and rarely stays true. |
-| Add patient search by ID | Strong | It clearly names the feature added and suggests one focused change. |
-| fix stuff | Weak | It is too vague. It does not identify the problem or what was actually fixed. |
-| Prevent cancellation of completed appointments | Strong | It names a specific behaviour being enforced, so the purpose of the change is clear. |
+| Original example                               | Strong or Weak | Reason                                                                                                                      |
+|------------------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------|
+| changes                                        | Weak           | It does not say what changed or why, so teammates would need to inspect the diff to understand the commit.                  |
+| final version                                  | Weak           | It claims the work is finished but does not describe what was added or fixed, and "final" is unclear and rarely stays true. |
+| Add patient search by ID                       | Strong         | It clearly names the feature added and suggests one focused change.                                                         |
+| fix stuff                                      | Weak           | It is too vague. It does not identify the problem or what was actually fixed.                                               |
+| Prevent cancellation of completed appointments | Strong         | It names a specific behaviour being enforced, so the purpose of the change is clear.                                        |
 
 ## C Over scoped PR review
 
@@ -96,14 +96,14 @@ GitHub Copilot says: "Looks good; tests pass."
 
 ## E Team workflow agreement
 
-| Practice | Team agreement |
-|---|---|
-| Branch naming | feature/short-description, for example feature/patient-lookup, feature/practitioner-lookup and feature/appointment-cancellation. |
-| Commit message convention | Imperative, specific messages that say what changed, such as "Add patient search by ID". Each commit holds one coherent change; vague messages such as "test" or "changes" are not used for feature work. |
-| PR size | One PR per issue, containing only that issue's implementation, tests and directly related evidence. |
-| Another-member review requirement | Every PR is reviewed by at least one member who did not write it. The reviewer reads the actual diff against the requirement, acceptance criteria and tests, and records their own observations before consulting Copilot. |
-| Merge rule | Merge into main only when the acceptance criteria are met, the full suite passes, feedback is resolved, the Copilot comparison is recorded and another member has approved. The author does not merge without that approval. |
-| Significant Copilot disclosure rule | Significant Copilot help is recorded in the PR and in section H, with its purpose, a summary of the output, our checks and whether we accepted, modified or rejected it. |
+| Practice                            | Team agreement                                                                                                                                                                                                               |
+|-------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Branch naming                       | feature/short-description, for example feature/patient-lookup, feature/practitioner-lookup and feature/appointment-cancellation.                                                                                             |
+| Commit message convention           | Imperative, specific messages that say what changed, such as "Add patient search by ID". Each commit holds one coherent change; vague messages such as "test" or "changes" are not used for feature work.                    |
+| PR size                             | One PR per issue, containing only that issue's implementation, tests and directly related evidence.                                                                                                                          |
+| Another-member review requirement   | Every PR is reviewed by at least one member who did not write it. The reviewer reads the actual diff against the requirement, acceptance criteria and tests, and records their own observations before consulting Copilot.   |
+| Merge rule                          | Merge into main only when the acceptance criteria are met, the full suite passes, feedback is resolved, the Copilot comparison is recorded and another member has approved. The author does not merge without that approval. |
+| Significant Copilot disclosure rule | Significant Copilot help is recorded in the PR and in section H, with its purpose, a summary of the output, our checks and whether we accepted, modified or rejected it.                                                     |
 
 ## F Issue and backlog index
 
