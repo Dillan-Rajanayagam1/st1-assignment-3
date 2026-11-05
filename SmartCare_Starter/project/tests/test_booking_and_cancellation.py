@@ -15,17 +15,6 @@ from smartcare.services import (
 
 WHEN = datetime(2026, 10, 1, 9)
 
-# Service cancellation (issue #2) is still a Stage 6 TODO. These tests
-# are written now and expected to fail with NotImplementedError. They
-# are strict, so they will report a failure once cancel_appointment is
-# implemented, which tells the team to remove this marker.
-NEEDS_SERVICE_CANCELLATION = pytest.mark.xfail(
-    raises=NotImplementedError,
-    strict=True,
-    reason='AppointmentService.cancel_appointment not implemented (issue #2)',
-)
-
-
 def setup_services() -> tuple[
     SmartCareDataStore,
     PatientService,
@@ -155,7 +144,6 @@ def test_cancelled_appointment_allows_rebooking() -> None:
     assert data_store.list_appointments() == [original, replacement]
 
 
-@NEEDS_SERVICE_CANCELLATION
 def test_service_cancel() -> None:
     """TEST-18: the service cancels and returns the same stored object."""
     _, _, _, appointments = setup_services()
@@ -167,7 +155,6 @@ def test_service_cancel() -> None:
     assert appointment.status is AppointmentStatus.CANCELLED
 
 
-@NEEDS_SERVICE_CANCELLATION
 def test_cancel_unknown_appointment_rejected() -> None:
     """TEST-06: an unknown ID raises LookupError and changes nothing."""
     _, _, _, appointments = setup_services()
@@ -179,7 +166,6 @@ def test_cancel_unknown_appointment_rejected() -> None:
     assert appointment.status is AppointmentStatus.SCHEDULED
 
 
-@NEEDS_SERVICE_CANCELLATION
 def test_service_cancel_blank_id() -> None:
     """TEST-19: a blank ID raises ValueError and changes nothing."""
     _, _, _, appointments = setup_services()
@@ -191,7 +177,6 @@ def test_service_cancel_blank_id() -> None:
     assert appointment.status is AppointmentStatus.SCHEDULED
 
 
-@NEEDS_SERVICE_CANCELLATION
 def test_service_retains_cancelled_history() -> None:
     """TEST-20: after service cancellation the record is still retrievable."""
     data_store, _, _, appointments = setup_services()

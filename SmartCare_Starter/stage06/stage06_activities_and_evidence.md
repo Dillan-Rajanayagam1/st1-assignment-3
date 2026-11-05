@@ -44,7 +44,7 @@ Complete this one group record. Link actual issues, diffs, tests and reviews; av
   7. The status change is made through Appointment.cancel, not by the service setting the status directly.
 - Scope: In scope: AppointmentService.cancel_appointment and focused tests in tests/test_services.py. Out of scope: changes to the Appointment state rules, the data store, the console menu, rescheduling, deletion of records and any new dependency.
 - Definition of Done: As for FR-02: acceptance criteria met, focused tests added, original starter tests unchanged and passing, full-suite evidence recorded with tested SHA, another-member review of the actual diff with the human-first Copilot comparison, feedback resolved, merged into main, every member pulled main and integrated tests pass.
-- Owner: Kyle Carasig (KhenZ07) [TO CONFIRM: change if another member takes this PR]
+- Owner: Kamalpreet Singh (kamal824). Originally assigned to Kyle Carasig (KhenZ07); taken over by Kamalpreet so that Stage 8 preparation, which needs working cancellation, could start.
 - Actual issue link: https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2
 
 ### Practitioner lookup (third Stage 6 service target)
@@ -110,7 +110,7 @@ GitHub Copilot says: "Looks good; tests pass."
 | Issue link | Requirement | Owner | Acceptance criteria or precise link | Status |
 |---|---|---|---|---|
 | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/1 | FR-02 Patient search | Kyle Carasig (KhenZ07) | Returns the stored Patient for a known ID; ValueError for blank or invalid IDs; LookupError for an unknown valid ID; no records changed. See section A. | Implemented and merged through PR #3 (merge commit fc2c292). [TO CONFIRM: issue closed] |
-| https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2 | FR-06 Appointment cancellation and FR-07 Retained history | Kyle Carasig (KhenZ07) [TO CONFIRM] | Seven criteria in section A: CANCELLED status, same object returned, retained and retrievable, LookupError for unknown, ValueError for invalid IDs and illegal transitions, change made through Appointment.cancel. | Open. Not yet implemented on main; work prepared for feature/appointment-cancellation. [TO UPDATE when merged] |
+| https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2 | FR-06 Appointment cancellation and FR-07 Retained history | Kamalpreet Singh (kamal824), taken over from Kyle Carasig | Seven criteria in section A: CANCELLED status, same object returned, retained and retrievable, LookupError for unknown, ValueError for invalid IDs and illegal transitions, change made through Appointment.cancel. | Implemented on feature/appointment-cancellation. [TO UPDATE when merged] |
 | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/4 | Practitioner lookup (supporting criterion for the Stage 6 service targets) | Kamalpreet Singh (kamal824) | Returns the stored Practitioner for a known ID; ValueError for blank or invalid IDs; LookupError for an unknown valid ID; no records changed. See section A. | Implemented and merged through PR #5 (merge commit 220d739). Merged before another-member approval was recorded; see section G. |
 
 ## G Pull request evidence
@@ -170,21 +170,21 @@ Repeat this block per PR. Record actual events, not planned approvals.
 - PR link and title: [TO FILL: link] — Cancel appointments through the service and retain history
 - Linked issue and requirement: https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2 — FR-06 and FR-07
 - Feature branch: feature/appointment-cancellation
-- Changed behaviour: Implemented AppointmentService.cancel_appointment. It finds the stored appointment through the existing find_appointment method, so blank or invalid IDs raise ValueError and unknown IDs raise LookupError. It then calls Appointment.cancel, so the domain object enforces the SCHEDULED-only rule, and returns the same stored object. Nothing is deleted. Added eleven focused tests covering same-object return, CANCELLED status, retained retrieval with unchanged details, trimmed IDs, an unknown ID, four invalid inputs, repeated cancellation, cancellation of a COMPLETED appointment, and rebooking the freed practitioner slot while the cancelled record is kept.
+- Changed behaviour: Implemented AppointmentService.cancel_appointment. It finds the stored appointment through the existing find_appointment method, so blank or invalid IDs raise ValueError and unknown IDs raise LookupError. It then calls Appointment.cancel, so the domain object enforces the SCHEDULED-only rule, and returns the same stored object. Nothing is deleted. Added eleven focused test cases in tests/test_services.py covering same-object return, CANCELLED status, retained retrieval with unchanged details, trimmed IDs, an unknown ID, four invalid inputs, repeated cancellation, cancellation of a COMPLETED appointment, and rebooking the freed practitioner slot while the cancelled record is kept. Removed the Stage 7 expected-failure marker from the four service-cancellation tests, which now pass.
 - Meaningful commits: [TO FILL: commit link] — Cancel appointments through the service and retain history
 - Test command, directory and observed result:
   - Directory: SmartCare_Starter/project
-  - Command: `..\..\.venv\Scripts\python.exe -m pytest`
+  - Command: `python3 -m pytest`
   - Observed result: [TO FILL from your own run]
   - Tested code SHA: [TO FILL]
 - Another-member reviewer: [TO FILL: name and GitHub username; must not be the author]
 - Human observations recorded before Copilot: [TO FILL]
-- Requirement, responsibilities, test assertions and unrelated-scope checks: [TO FILL]
+- Requirement, responsibilities, test assertions and unrelated-scope checks: The diff changes only cancel_appointment and its docstring, adds cancellation tests, removes the Stage 7 xfail marker and updates the Stage 6 and Stage 7 records. The service does not set status directly or delete records; Appointment.cancel keeps the state rule. A local check that removed the appointment.cancel() call made seven cancellation tests fail, so the tests detect a missing transition.
 - Key feedback: [TO FILL]
 - Author response/change and verification: [TO FILL]
 - Reviewer recheck and approval: [TO FILL: link to the approving review]
 - Merge outcome and SHA: [TO FILL]
-- Significant Copilot assistance: [TO FILL or "none"]
+- Significant Copilot assistance: None
 - Linked issue closure: [TO FILL: issue #2 closed]
 - Each member updated main: [TO FILL]
 - Integrated verification after merge: [TO FILL]
@@ -262,8 +262,8 @@ Repeat per member. Include only categories that describe actual work; write not 
 
 ### Kamalpreet Singh
 
-- Implementation: Implemented PractitionerService.find_practitioner on feature/practitioner-lookup. It delegates to SmartCareDataStore.find_practitioner, so the store's existing validation trims IDs, keeps them case-sensitive and raises ValueError for blank or non-string IDs. The service turns an absent result into LookupError and returns the same stored Practitioner object. No other class was changed.
-- Testing: Added eight practitioner-lookup test cases to tests/test_services.py covering stored-object identity, trimmed IDs, case sensitivity, an unknown ID with the store left unchanged, and four invalid inputs ("", whitespace only, None and a number). The full suite, including the eight unchanged starter tests, was run before review (see the practitioner-lookup PR block in section G).
+- Implementation: Implemented AppointmentService.cancel_appointment on feature/appointment-cancellation through find_appointment and Appointment.cancel, returning the same stored object without deleting it. Implemented PractitionerService.find_practitioner on feature/practitioner-lookup. It delegates to SmartCareDataStore.find_practitioner, so the store's existing validation trims IDs, keeps them case-sensitive and raises ValueError for blank or non-string IDs. The service turns an absent result into LookupError and returns the same stored Practitioner object. No other class was changed.
+- Testing: Added eleven cancellation test cases to tests/test_services.py (same object, CANCELLED status, retained details, trimmed ID, unknown ID, four invalid IDs, repeated and COMPLETED cancellation, rebooking). Added eight practitioner-lookup test cases to tests/test_services.py covering stored-object identity, trimmed IDs, case sensitivity, an unknown ID with the store left unchanged, and four invalid inputs ("", whitespace only, None and a number). The full suite, including the eight unchanged starter tests, was run before review (see the practitioner-lookup PR block in section G).
 - Review: Checked the PR #5 diff for scope before requesting review. [TO FILL if Kamalpreet reviews another member's PR]
 - Issue refinement: Took ownership of the practitioner-lookup supporting criterion and created issue #4 with its acceptance criteria (https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/4).
 - Design and responsibility discussion: Followed the same pattern as patient lookup so both lookups share one contract. Validation stays in the store and identity stays with the stored object; the service only reports absence as LookupError and does not create a replacement record.
