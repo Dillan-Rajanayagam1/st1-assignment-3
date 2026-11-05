@@ -84,7 +84,7 @@ Assign TEST IDs before implementation or generation. Use canonical AC IDs with t
 | FR-05 | Practitioner cannot have two SCHEDULED appointments at the same time | TEST-03 | Negative | tests/test_booking_and_cancellation.py::test_same_practitioner_same_time_rejected | Second booking raises ValueError; store keeps only the first | Passed | Student-authored |
 | FR-05 | Different practitioners can be booked at the same time | TEST-04 | Positive | tests/test_booking_and_cancellation.py::test_different_practitioner_same_time_allowed | Both appointments are stored | Passed | Student-authored |
 | FR-06 | Scheduled appointment can be cancelled | TEST-05 | Positive | tests/test_booking_and_cancellation.py::test_cancel_changes_status | Stored appointment becomes CANCELLED | Passed (domain transition through the stored object) | Student-authored |
-| FR-06 | Unknown appointment cannot be cancelled | TEST-06 | Negative | tests/test_booking_and_cancellation.py::test_cancel_unknown_appointment_rejected | LookupError; existing appointment unchanged | Expected failure (xfail): service cancellation not yet implemented (issue #2) | Student-authored |
+| FR-06 | Unknown appointment cannot be cancelled | TEST-06 | Negative | tests/test_booking_and_cancellation.py::test_cancel_unknown_appointment_rejected | LookupError; existing appointment unchanged | Passed after cancel_appointment was implemented (issue #2); was an expected failure at the first Stage 7 run | Student-authored |
 | FR-07 | Cancelled appointment stays in history | TEST-07 | Positive | tests/test_booking_and_cancellation.py::test_cancelled_appointment_retained | Same object still retrievable with its details and CANCELLED status | Passed | Student-authored |
 | FR-05, FR-06 | Supplied foundation checks | Supplied | Mixed | tests/test_starter.py (8 tests) | Registration, booking, duplicates, conflict and domain cancellation guard | Passed | Supplied |
 
@@ -139,11 +139,11 @@ Use fresh shared SmartCareDataStore state, registered objects and completed Stag
 | TEST-15 | Service books a valid appointment with expected details | FR-05 booking contract | tests/test_booking_and_cancellation.py::test_service_books_appointment | Passed |
 | TEST-16 | Service rejects practitioner conflict | FR-05 | tests/test_booking_and_cancellation.py::test_same_practitioner_same_time_rejected (shared with TEST-03) | Passed |
 | TEST-17 | Service accepts different practitioners at same time | FR-05 | tests/test_booking_and_cancellation.py::test_different_practitioner_same_time_allowed (shared with TEST-04) | Passed |
-| TEST-18 | Service cancels and returns the same stored object | FR-06 | tests/test_booking_and_cancellation.py::test_service_cancel | Expected failure (xfail): waiting for cancel_appointment (issue #2) |
-| TEST-19 | Service rejects a blank cancellation ID with ValueError | FR-06 | tests/test_booking_and_cancellation.py::test_service_cancel_blank_id | Expected failure (xfail): waiting for cancel_appointment (issue #2) |
-| TEST-20 | Service keeps the cancelled appointment retrievable | FR-07 | tests/test_booking_and_cancellation.py::test_service_retains_cancelled_history | Expected failure (xfail): waiting for cancel_appointment (issue #2) |
+| TEST-18 | Service cancels and returns the same stored object | FR-06 | tests/test_booking_and_cancellation.py::test_service_cancel | Passed after cancel_appointment was implemented (issue #2); was an expected failure at the first Stage 7 run |
+| TEST-19 | Service rejects a blank cancellation ID with ValueError | FR-06 | tests/test_booking_and_cancellation.py::test_service_cancel_blank_id | Passed after cancel_appointment was implemented (issue #2); was an expected failure at the first Stage 7 run |
+| TEST-20 | Service keeps the cancelled appointment retrievable | FR-07 | tests/test_booking_and_cancellation.py::test_service_retains_cancelled_history | Passed after cancel_appointment was implemented (issue #2); was an expected failure at the first Stage 7 run |
 
-The four service-cancellation tests use a strict xfail marker that expects NotImplementedError. When cancel_appointment is implemented they will report as failures until the marker is removed, so they cannot be forgotten.
+The four service-cancellation tests first used a strict xfail marker that expected NotImplementedError. When cancel_appointment was implemented (issue #2) the marker was removed and all four now pass.
 
 ## G Negative and Boundary Cases
 
@@ -244,6 +244,7 @@ Run python -m pytest from project/. Retain all accumulated tests. Record the tes
 | Command | Working directory | Code SHA | Passed | Failed | Failure summary | Product defect / test defect / unresolved | Evidence and interpretation |
 |---|---|---|---|---|---|---|---|
 | python3 -m pytest | SmartCare_Starter/project | a41e607a768fcbc7e6e8365d39fa6f64d73e3505 | 44 | 0 (4 xfailed) | No failures. The 4 xfailed tests are the service-cancellation tests. | Unresolved: AppointmentService.cancel_appointment is still a Stage 6 TODO (issue #2), not a product defect in tested code | All 8 starter tests, 16 Stage 6 lookup tests and 20 new Stage 7 tests pass |
+| python3 -m pytest | SmartCare_Starter/project | [TO FILL: cancellation commit SHA] | 59 | 0 | No failures | None | Rerun after cancel_appointment was implemented: 8 starter, 16 lookup, 11 cancellation and 24 Stage 7 tests pass; the 4 former xfail tests now pass |
 
 Individual test runs and changed-order independence evidence: `python3 -m pytest tests/test_domain.py` (11 passed); `python3 -m pytest tests/test_booking_and_cancellation.py` (9 passed, 4 xfailed); `python3 -m pytest tests/test_booking_and_cancellation.py tests/test_domain.py tests/test_starter.py tests/test_services.py` in reversed file order (44 passed, 4 xfailed). Every test builds its own fresh SmartCareDataStore, so no test depends on another.
 Optional tutor-led demonstration notes: [optional; leave blank if not used]
@@ -314,7 +315,7 @@ Every test must trace to a requirement or documented contract, use a meaningful 
 
 Tested Stage 7 main SHA: fd112f9b7c298d9a572b7daba932bf441628d863 (merge of PR #6)
 Full-suite result: 44 passed, 4 xfailed with `python3 -m pytest` from SmartCare_Starter/project, on the feature branch at a41e607 and again on main at fd112f9
-Unresolved defects and effect on baseline: AppointmentService.cancel_appointment is still unimplemented (issue #2, Stage 6). Its four service tests are strict expected failures and must have the marker removed once it is implemented.
+Unresolved defects and effect on baseline: None after issue #2. cancel_appointment was implemented in the cancellation PR and the four former expected-failure tests were turned into normal passing tests (59 passed).
 Clean working tree and integration evidence: Kamalpreet Singh pulled main at fd112f9 and reran the full suite: 44 passed, 4 xfailed. PR #6 was merged by another member (Dillan) but without a written review or approval on GitHub; this is recorded as a process gap.
-Stage 8 handover status: Stage 7 tests are integrated on main. Open item carried forward: issue #2 (service cancellation); when it is implemented, remove the xfail marker from the four service-cancellation tests. No Stage 8 work assigned yet.
+Stage 8 handover status: Stage 7 tests are integrated on main and issue #2 is resolved, so the full suite passes with no expected failures. Ready for Stage 8 preparation.
 All tutorial/formative responses and traceability/Copilot decisions complete: Yes, with the record corrected to match the actual tests and results.
