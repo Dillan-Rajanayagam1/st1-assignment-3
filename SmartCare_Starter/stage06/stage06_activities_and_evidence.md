@@ -7,7 +7,7 @@ Complete this one group record. Link actual issues, diffs, tests and reviews; av
   - Dillan Rajanayagam — Dillan-Rajanayagam1 — UG
   - Kyle Carasig — KhenZ07 — UG
   - Andy Lieu — Andy-Lieu — UG
-  - Kamal — [TO FILL: full name, GitHub username] — UG
+  - Kamalpreet Singh — kamal824 — UG
 - Repository URL: https://github.com/Dillan-Rajanayagam1/st1-assignment-3
 - Starting SHA: dd0d9ec417c73d6fd881f1b8b499aea2b5f960c7 (Add shared SmartCare Assignment 3 starter)
 
@@ -60,7 +60,7 @@ Complete this one group record. Link actual issues, diffs, tests and reviews; av
   5. A failed lookup does not create, replace or change any stored practitioner.
 - Scope: In scope: PractitionerService.find_practitioner and focused tests in tests/test_services.py. Out of scope: changes to Practitioner, the data store, the console menu and any new dependency.
 - Definition of Done: Same as FR-02.
-- Owner: [TO FILL: member name and GitHub username]
+- Owner: Kamalpreet Singh (kamal824)
 - Actual issue link: [TO FILL: link after creating the issue]
 
 ## B Commit quality
@@ -111,7 +111,7 @@ GitHub Copilot says: "Looks good; tests pass."
 |---|---|---|---|---|
 | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/1 | FR-02 Patient search | Kyle Carasig (KhenZ07) | Returns the stored Patient for a known ID; ValueError for blank or invalid IDs; LookupError for an unknown valid ID; no records changed. See section A. | Implemented and merged through PR #3 (merge commit fc2c292). [TO CONFIRM: issue closed] |
 | https://github.com/Dillan-Rajanayagam1/st1-assignment-3/issues/2 | FR-06 Appointment cancellation and FR-07 Retained history | Kyle Carasig (KhenZ07) [TO CONFIRM] | Seven criteria in section A: CANCELLED status, same object returned, retained and retrievable, LookupError for unknown, ValueError for invalid IDs and illegal transitions, change made through Appointment.cancel. | Open. Not yet implemented on main; work prepared for feature/appointment-cancellation. [TO UPDATE when merged] |
-| [TO FILL: new issue link] | Practitioner lookup (supporting criterion for the Stage 6 service targets) | [TO FILL] | Returns the stored Practitioner for a known ID; ValueError for blank or invalid IDs; LookupError for an unknown valid ID; no records changed. See section A. | Open. Work prepared for feature/practitioner-lookup. [TO UPDATE when merged] |
+| [TO FILL: new issue link] | Practitioner lookup (supporting criterion for the Stage 6 service targets) | Kamalpreet Singh (kamal824) | Returns the stored Practitioner for a known ID; ValueError for blank or invalid IDs; LookupError for an unknown valid ID; no records changed. See section A. | Open. Implemented on feature/practitioner-lookup; PR awaiting another-member review. [TO UPDATE when merged] |
 
 ## G Pull request evidence
 
@@ -260,15 +260,15 @@ Repeat per member. Include only categories that describe actual work; write not 
 - Debugging or integration: [TO FILL or not applicable]
 - Documentation or team support: [TO FILL or not applicable]
 
-### Kamal
+### Kamalpreet Singh
 
-- Implementation: [TO FILL or not applicable]
-- Testing: [TO FILL or not applicable]
-- Review: [TO FILL]
-- Issue refinement: [TO FILL or not applicable]
-- Design and responsibility discussion: [TO FILL or not applicable]
-- Debugging or integration: [TO FILL or not applicable]
-- Documentation or team support: [TO FILL or not applicable]
+- Implementation: Implemented PractitionerService.find_practitioner on feature/practitioner-lookup. It delegates to SmartCareDataStore.find_practitioner, so the store's existing validation trims IDs, keeps them case-sensitive and raises ValueError for blank or non-string IDs. The service turns an absent result into LookupError and returns the same stored Practitioner object. No other class was changed.
+- Testing: Added eight practitioner-lookup test cases to tests/test_services.py covering stored-object identity, trimmed IDs, case sensitivity, an unknown ID with the store left unchanged, and four invalid inputs ("", whitespace only, None and a number). The full suite, including the eight unchanged starter tests, was run before review (see the practitioner-lookup PR block in section G).
+- Review: [TO FILL: PR reviewed for another member, if any]
+- Issue refinement: Took ownership of the practitioner-lookup supporting criterion and its acceptance criteria in section A.
+- Design and responsibility discussion: Followed the same pattern as patient lookup so both lookups share one contract. Validation stays in the store and identity stays with the stored object; the service only reports absence as LookupError and does not create a replacement record.
+- Debugging or integration: [TO FILL: pulling main and running the integrated suite after merge]
+- Documentation or team support: Completed the member details, practitioner-lookup ownership, issue index entry and this contribution record.
 
 ## K Exit question
 
