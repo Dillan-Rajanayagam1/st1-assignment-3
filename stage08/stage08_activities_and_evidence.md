@@ -15,12 +15,23 @@ Use concise results and accessible artefact links rather than copying entire log
 ### A.1 Classify all five statements
 For each, choose symptom, evidence or hypothesis/opinion, and explain your reason. These are discussion statements, not confirmed diagnoses.
 - Appointment disappears after cancellation.
+    Classification: Symptom.
+    Reason: This describes the observed problem but does not explain its cause. It does not establish whether the appointment was removed from storage or simply not returned by a lookup.
 - The data-store removal path is probably being called.
+    Classification: Hypothesis.
+    Reason: This proposes a possible explanation that needs evidence. Our current SmartCareDataStore has no public delete operation, so we must not assume that a removal path exists or was called.
 - The failing test shows store.find_appointment('A1') returns None.
+    Classification: Evidence. 
+    Reason: This reports a specific result from a named operation. It supports investigating lookup behaviour but does not by itself prove that the appointment has been deleted.
+
 - The service layer is badly designed.
+    Classification: Opinion.
+    Reason: This is a broad judgement without a specific cause, supporting observation or test that could confirm it. A useful hypothesis would identify a particular code decision
+   and explain how to check it.
 - Traceback points to smartcare/services.py line 42 in the example.
 The example line number is illustrative; inspect the actual line in your run. The removal hypothesis must be tested against the current project, which has no public delete operation.
-
+    Classification: Evidence within the example.
+    Reason: A traceback provides an execution location and call path, but the location where a failure appears may differ from its root cause. Line 42 is illustrative, not a confirmed line from our run.
 Response and reason: [complete]
 
 ### A.2 Build a debugging record
@@ -31,13 +42,37 @@ Response and reason: [complete]
 ### A.3 Test defect or product defect
 A test expects cancelled appointments to be deleted, but FR-07 says history must be retained. What should be changed? Explain why. Also decide whether a test expecting different practitioners at the same time to conflict reflects AC-04.2. Do not assume every failing test is correct.
 
-Response and reason: [complete]
+Response and reason: [
+
+    A test that expects cancelled appointments to be deleted is incorrect because it contradicts FR-07, which requires cancelled history to be retained. We should correct the test rather than change the application to delete the appointment. The test should check that the appointment has CANCELLED status, remains in the store and can still be retrieved as the same object. Similarly, a test that expects different practitioners booked at the same time to conflict does not reflect AC-04.2. Different practitioners are allowed to have appointments at the same time. The test should accept this case while checking that a second SCHEDULED appointment for the same practitioner at the same time is rejected. These examples show why a failing test does not automatically mean the application is wrong. We need to compare the test's expectation with the published requirement before deciding whether to change the test or repair the implementation.
+]
 
 ### A.4 Refactoring smell hunt
 Consider a hypothetical 70-line AppointmentService method containing duplicate status strings, direct collection manipulation, printing, validation and four nested conditionals. Identify the smells and propose small refactorings that preserve required behaviour. The direct collection work replaces the old storage-specific scenario; use the existing SmartCareDataStore boundary. Do not implement an extra architecture.
 Classify these proposed changes as refactoring, repair or feature: rename appt to appointment; extract a repeated conflict helper; add rescheduling; restore retained cancellation lookup; replace a magic status string with the existing enum. Explain the behaviour that must remain unchanged.
 
-Response and reason: [complete]
+Response and reason: [
+
+    The hypothetical 70-line method combines several responsibilities, including validation, storage access, workflow logic and printing. This makes it harder to understand, test and change. Repeated status strings increase the risk of inconsistent comparisons, while four nested conditionals make the different execution paths difficult to follow. Small refactorings could include extracting genuinely repeated logic into a focused helper, replacing status strings with the existing AppointmentStatus enum and simplifying nested conditions where the same behaviour can be preserved. Storage operations should use the existing SmartCareDataStore interface rather than directly manipulating its collections. Printing should be separated from service workflow logic where its appropriate. These changes should be made individually under passing tests rather than as a broad rewrite. They must preserve which operations succeed or fail, the exceptions raised, stored-object identity, cancellation transitions and unchanged state after rejected operations.
+
+    Classification of the proposed changes:
+
+    - Rename appt to appointment — Refactoring.
+    This improves readability without changing behaviour, provided the rename is applied consistently and does not change the public interface.
+
+    - Extract a repeated conflict helper — Refactoring.
+    This reduces duplication, provided it preserves exactly which bookings are accepted or rejected and does not introduce a new conflict rule.
+
+    - Add rescheduling — Feature.
+    This introduces a new operation rather than improving the structure of existing behaviour.
+
+    - Restore retained cancellation lookup — Repair.
+    This fixes incorrect behaviour so that cancelled appointments can be retrieved as required. It is not behaviour-preserving refactoring.
+
+    - Replace a magic status string with the existing enum — Refactoring
+    Provided the original comparison was already correct and the change preserves its outcome. If it fixes an incorrect comparison, it should instead be recorded as a repair.
+
+]
 
 ### A.5 Traceback and hypothesis ranking
 Using one actual failure, identify its exception/assertion, expected and observed values, test line, application call path and supporting requirement. List three plausible causes and rank them by fit with the available evidence. For each cause, name a check that could distinguish it from the others. Explain why a traceback alone does not establish the cause.
@@ -47,7 +82,11 @@ Response and reason: [complete]
 ### A.6 Exit question
 Why is changing code immediately after seeing a failure often a poor debugging strategy?
 
-Response and reason: [complete]
+Response and reason: [
+
+    Changing code immediately after seeing a failure can lead us to fix the visible symptom rather than the underlying cause. We might also change behaviour that was already correct or make several edits without knowing which one affected the result. A better approach is to reproduce the failure, check the expected behaviour against the requirements and form a testable explanation. We should then inspect evidence that can distinguish possible causes before making the smallest justified repair. Keeping a regression test helps us confirm that the repair addresses the original problem and detect whether it returns during later changes.
+
+]
 
 
 Classification responses (1–5, each with reason): [complete]
