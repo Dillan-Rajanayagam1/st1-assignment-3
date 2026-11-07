@@ -22,5 +22,7 @@ def main() -> None:
             print(error)
     else:
         run_demo()
+
+
 if __name__ == '__main__':
     main()

@@ -1,0 +1,291 @@
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Patient ID: Patient name: Registered patient P1
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Practitioner ID: Practitioner name: Specialty: Registered practitioner D1
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Practitioner ID: Practitioner name: Specialty: Registered practitioner D2
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Patient ID: P1: Alex Example
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Practitioner ID: D2: Morgan Example, Physiotherapy
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: Patient ID: Practitioner ID: Date/time (YYYY-MM-DD HH:MM): Booked A1: P1 with D1, 2026-10-01 09:00, scheduled
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: Patient ID: Practitioner ID: Date/time (YYYY-MM-DD HH:MM): Error: Practitioner already has a SCHEDULED appointment at this time
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: Patient ID: Practitioner ID: Date/time (YYYY-MM-DD HH:MM): Booked A3: P1 with D2, 2026-10-01 09:00, scheduled
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: Patient ID: Practitioner ID: Date/time (YYYY-MM-DD HH:MM): Booked A4: P1 with D1, 2026-10-01 08:30, scheduled
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: Cancelled A1: P1 with D1, 2026-10-01 09:00, cancelled
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: A1: P1 with D1, 2026-10-01 09:00, cancelled
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: Error: Only SCHEDULED appointments may be cancelled
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: Error: Appointment not found
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Practitioner ID: Status (scheduled/cancelled/completed, blank = all): A4: P1 with D1, 2026-10-01 08:30, scheduled
+A1: P1 with D1, 2026-10-01 09:00, cancelled
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Practitioner ID: Status (scheduled/cancelled/completed, blank = all): A4: P1 with D1, 2026-10-01 08:30, scheduled
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Practitioner ID: Status (scheduled/cancelled/completed, blank = all): Error: Practitioner not found
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Practitioner ID: Status (scheduled/cancelled/completed, blank = all): No matching appointments
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: Patient ID: Practitioner ID: Date/time (YYYY-MM-DD HH:MM): Error: Use date/time format YYYY-MM-DD HH:MM
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: Patient ID: Practitioner ID: Date/time (YYYY-MM-DD HH:MM): Error: Invalid calendar date/time; use YYYY-MM-DD HH:MM
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Practitioner ID: Status (scheduled/cancelled/completed, blank = all): Error: Status must be scheduled, cancelled, completed or blank
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Unknown choice; enter a number from the menu
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Appointment ID: Patient ID: Practitioner ID: Date/time (YYYY-MM-DD HH:MM): Booked A5: P1 with D1, 2026-10-01 09:00, scheduled
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Practitioner ID: Status (scheduled/cancelled/completed, blank = all): A4: P1 with D1, 2026-10-01 08:30, scheduled
+A1: P1 with D1, 2026-10-01 09:00, cancelled
+A5: P1 with D1, 2026-10-01 09:00, scheduled
+
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit
+Choice: Goodbye. Session-only data is lost on exit.
