@@ -204,43 +204,43 @@ Each member's substantive contribution and artefact: [complete]
 
 1. What should an engineer do before changing code in response to a failure?
 
-Response: [complete]
+Response: [An engineer should reproduce the failure, record what happened and compare it with the expected behaviour from the requirements. They should then form a testable hypothesis and inspect evidence before making a change. This helps avoid fixing a symptom while leaving the underlying cause unresolved.]
 
 2. Where should expected behaviour come from during debugging?
 
-Response: [complete]
+Response: [Expected behaviour should come from the published requirements, acceptance criteria and documented contracts. We should not assume that the current implementation, an existing test or an AI suggestion is correct without checking it against those sources.]
 
 3. What is a debugging hypothesis?
 
-Response: [complete]
+Response: [A debugging hypothesis is a possible explanation for an observed failure that can be tested using evidence. It should identify what might be causing the problem and what we could inspect or run to support or reject that explanation.]
 
 4. What is a regression test and why is it retained?
 
-Response: [complete]
+Response: [A regression test checks required behaviour to detect whether later changes break it. When added for a defect, it should fail for the relevant incorrect behaviour and pass after the repair. We retain it so that the same problem can be detected if it returns during future development or refactoring.]
 
 5. What is meant by root cause?
 
-Response: [complete]
+Response: [The root cause is the underlying reason a failure occurs, supported by code or execution evidence. It is different from the visible symptom or the location where an error appears. Identifying it helps us repair the source of the problem rather than hide its effects.]
 
 6. What is refactoring?
 
-Response: [complete]
+Response: [Refactoring improves the internal structure of code without changing its required external behaviour. Examples include clarifying names or extracting genuinely repeated logic into a helper. It should preserve results, exceptions and state changes rather than introduce a feature or fix incorrect behaviour.]
 
 7. What is a swallowed exception?
 
-Response: [complete]
+Response: [A swallowed exception occurs when code catches an exception and ignores or suppresses it without appropriate handling or reporting. This can hide a failure and allow execution to continue as though the operation succeeded, making the problem harder to diagnose.]
 
 8. What is a code smell?
 
-Response: [complete]
+Response: [A code smell is a warning sign that code may be difficult to understand, maintain or change. Examples include duplicated logic, unclear names, deep nesting and methods with too many responsibilities. A smell suggests that improvement may be useful, but it does not prove that the code behaves incorrectly.]
 
 9. How should GitHub Copilot-generated debugging diagnoses be treated?
 
-Response: [complete]
+Response: [Copilot-generated diagnoses should be treated as hypotheses rather than confirmed explanations. We should check them against the actual code, requirements, reproduction results and tests. Each significant suggestion should be accepted, modified or rejected with a reason. A convincing explanation remains unverified until evidence supports it.]
 
 10. What is the Stage 8 engineering rule?
 
-Response: [complete]
+Response: [Diagnose before you fix. Reproduce the failure, establish the expected behaviour, record human hypotheses and inspect evidence before making the smallest justified repair. Retain regression tests and carry out refactoring only when the required behaviour is passing its checks.]
 
 ## L. Completion and handover
 
