@@ -2,10 +2,11 @@
 
 
 import re
+from collections.abc import Callable
 from datetime import datetime
 
 from smartcare.data_store import SmartCareDataStore
-from smartcare.domain import Appointment
+from smartcare.domain import Appointment, AppointmentStatus
 from smartcare.services import (
     AppointmentService,
     PatientService,
@@ -69,11 +70,139 @@ def run_demo() -> None:
     print('Session-only data: records are lost on exit.')
 
 
-def run_menu() -> None:
-    """Stage 9: implement the register/find/book/cancel/list/exit menu.
+MENU = """
+SmartCare menu
+1. Register patient
+2. Register practitioner
+3. Find patient
+4. Find practitioner
+5. Book appointment
+6. Cancel appointment
+7. Find appointment
+8. List practitioner appointments
+0. Exit"""
+
+
+def parse_status(text: str) -> AppointmentStatus | None:
+    """Return None for a blank filter, otherwise the matching status.
+
+    Raise ValueError for an unsupported status value.
+    """
+    value = text.strip().lower()
+    if not value:
+        return None
+    try:
+        return AppointmentStatus(value)
+    except ValueError:
+        raise ValueError(
+            'Status must be scheduled, cancelled, completed or blank',
+        ) from None
+
+
+def run_menu(
+    input_func: Callable[[str], str] = input,
+    output_func: Callable[[str], None] = print,
+) -> None:
+    """Run the register/find/book/cancel/list/exit menu.
 
     Call services, recover from expected input errors, and keep this
-    session's data until exit. main.py reports the incomplete menu
-    without crashing.
+    session's data until exit. Input and output functions can be
+    replaced so the workflow can be tested.
     """
-    raise NotImplementedError('Stage 9 interactive menu is not yet completed')
+    data_store = SmartCareDataStore()
+    patients = PatientService(data_store)
+    practitioners = PractitionerService(data_store)
+    appointments = AppointmentService(data_store)
+
+    def register_patient() -> None:
+        patient = patients.register_patient(
+            input_func('Patient ID: '),
+            input_func('Patient name: '),
+        )
+        output_func(f'Registered patient {patient.patient_id}')
+
+    def register_practitioner() -> None:
+        practitioner = practitioners.register_practitioner(
+            input_func('Practitioner ID: '),
+            input_func('Practitioner name: '),
+            input_func('Specialty: '),
+        )
+        output_func(f'Registered practitioner {practitioner.practitioner_id}')
+
+    def find_patient() -> None:
+        patient = patients.find_patient(input_func('Patient ID: '))
+        output_func(f'{patient.patient_id}: {patient.name}')
+
+    def find_practitioner() -> None:
+        practitioner = practitioners.find_practitioner(
+            input_func('Practitioner ID: '),
+        )
+        output_func(
+            f'{practitioner.practitioner_id}: {practitioner.name}, '
+            f'{practitioner.specialty}',
+        )
+
+    def book_appointment() -> None:
+        appointment = appointments.book_appointment(
+            input_func('Appointment ID: '),
+            input_func('Patient ID: '),
+            input_func('Practitioner ID: '),
+            parse_date_time(input_func('Date/time (YYYY-MM-DD HH:MM): ')),
+        )
+        output_func(f'Booked {format_appointment(appointment)}')
+
+    def cancel_appointment() -> None:
+        appointment = appointments.cancel_appointment(
+            input_func('Appointment ID: '),
+        )
+        output_func(f'Cancelled {format_appointment(appointment)}')
+
+    def find_appointment() -> None:
+        appointment = appointments.find_appointment(
+            input_func('Appointment ID: '),
+        )
+        output_func(format_appointment(appointment))
+
+    def list_appointments() -> None:
+        practitioner_id = input_func('Practitioner ID: ')
+        status = parse_status(
+            input_func('Status (scheduled/cancelled/completed, blank = all): '),
+        )
+        results = appointments.list_practitioner_appointments(
+            practitioner_id,
+            status,
+        )
+        if not results:
+            output_func('No matching appointments')
+        for appointment in results:
+            output_func(format_appointment(appointment))
+
+    actions = {
+        '1': register_patient,
+        '2': register_practitioner,
+        '3': find_patient,
+        '4': find_practitioner,
+        '5': book_appointment,
+        '6': cancel_appointment,
+        '7': find_appointment,
+        '8': list_appointments,
+    }
+    while True:
+        output_func(MENU)
+        try:
+            choice = input_func('Choice: ').strip()
+        except EOFError:
+            break
+        if choice == '0':
+            break
+        action = actions.get(choice)
+        if action is None:
+            output_func('Unknown choice; enter a number from the menu')
+            continue
+        try:
+            action()
+        except (ValueError, LookupError) as error:
+            output_func(f'Error: {error}')
+        except EOFError:
+            break
+    output_func('Goodbye. Session-only data is lost on exit.')
