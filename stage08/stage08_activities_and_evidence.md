@@ -103,14 +103,14 @@ Traceback — exception/assertion; expected/observed values; test line; call pat
 
 ## B. Stage 7 baseline and safe preparation
 
-- Stage 7 code SHA and requirement baseline: [TO FILL: Stage 7 SHA from git rev-parse HEAD on main]. Requirements: assignment overview revision 2 (FR-05, AC-04.1/04.2, FR-06/07/08, BR-07, AC-05.2).
+- Stage 7 code SHA and requirement baseline: 0d2540e3d8ae5f342d7c502d52da221a82c3d806 (main after moving project/ to the repository root). Requirements: assignment overview revision 2 (FR-05, AC-04.1/04.2, FR-06/07/08, BR-07, AC-05.2).
 - Baseline test command / working directory / observed result / evidence: `python3 -m pytest -q` in project/ → 59 passed.
-- Clean preparation SHA if a record-only commit followed Stage 7: [TO FILL: Baseline Git SHA printed by --check]
+- Clean preparation SHA if a record-only commit followed Stage 7: 0d2540e3d8ae5f342d7c502d52da221a82c3d806
 - Branch and preparer / how teammates obtained this branch: debug/stage08, prepared by Kamalpreet Singh; pushed to GitHub so teammates fetch it with `git fetch` and `git switch debug/stage08` instead of running the tool again.
 - Downloaded tool version, source SHA256 and --check outcome: prepare_debugging.py version 1.1, kept outside the repository. --check: preflight PASS; baseline data_store.py SHA256 b4a1993e878c59a9df5e9055320702b2d318c5b6055bb1693a3afc25cd8fd375; both fault signatures verified in a temporary copy, project unchanged.
 - --apply and --verify output summaries / artefact references: --apply printed "PREPARED: F8-01 practitioner conflict; F8-02 retained-history lookup" and "Verified expected failures: test_f8_01_conflict; test_f8_02_history (2 failed)". --verify printed "VERIFIED: exactly 2 expected failures; both approved symptom signatures present".
 - Bounded diff inspected and recovery location (not committed): git diff --stat showed only project/smartcare/data_store.py changed (find_appointment and has_practitioner_conflict bodies). The backup is in project/.stage8_faults/, which is ignored by .gitignore and not committed.
-- Prepared faulty-state commit SHA: [TO FILL: SHA of the commit "Prepare Stage 8 faults F8-01 and F8-02 with tool 1.1"]
+- Prepared faulty-state commit SHA: 5b95cb111e4b7ffd2363f576df0a0e1101d847a3 ("Prepare stage 08")
 - Preparation or recovery issues and resolution, if any: The first --check refused because the project was inside SmartCare_Starter/project; the tool requires project/ at the repository root. The project and stage records were moved to the root in commit 0d2540e, and the Stage 9 record emptied by an earlier update was restored. No --restore was needed.
 - Initial prepared full-suite command / result / key failures: `python3 -m pytest -q` in project/ → 8 failed, 51 passed. F8-01: test_starter.py::test_conflict_rule_and_different_practitioner, test_same_practitioner_same_time_rejected (DID NOT RAISE ValueError) and test_different_practitioner_same_time_allowed (ValueError: Practitioner already has a SCHEDULED appointment at this time). F8-02: test_cancel_changes_status (AttributeError: 'NoneType' object has no attribute 'status'), test_cancelled_appointment_retained, test_service_retains_cancelled_history, test_cancelled_appointment_is_retained_with_details (LookupError: Appointment not found) and test_repeated_cancellation_raises_value_error (LookupError instead of ValueError).
 
@@ -123,7 +123,7 @@ Traceback — exception/assertion; expected/observed values; test line; call pat
 - Human hypothesis and intended checks: see E, F8-01.
 - Supported root cause and inspected code/runtime evidence: SmartCareDataStore.has_practitioner_conflict compares `appointment.practitioner.practitioner_id != practitioner_id`. The inverted comparison reports a conflict only when the practitioner is different, so it ignores the real conflict and blocks valid bookings. AppointmentService.book_appointment correctly raises ValueError whenever this method returns True, which shows the service is not the cause.
 - Smallest justified fix / diff / why other behaviour is preserved: change `!=` to `==` in that one comparison. The exclude-ID, date/time and SCHEDULED conditions are untouched, so cancelled slots stay bookable and booking validation is unchanged.
-- Repair SHA / focused verification result: Included in commit "Final stage 08" [TO FILL: SHA]. test_f8_01_practitioner_conflict_rule passes; the three F8-01 tests in the existing suite pass; the F8-02 failures remain until its repair.
+- Repair SHA / focused verification result: Included in commit "Final stage 08" ea5abca. test_f8_01_practitioner_conflict_rule passes; the three F8-01 tests in the existing suite pass; the F8-02 failures remain until its repair.
 
 ## D. F8-02 diagnosis and repair
 
@@ -134,7 +134,7 @@ Traceback — exception/assertion; expected/observed values; test line; call pat
 - Human hypothesis and intended checks: see E, F8-02.
 - Supported root cause and inspected code/runtime evidence: SmartCareDataStore.find_appointment loops over the stored appointments with the extra condition `appointment.status.value != "cancelled"`, so a cancelled appointment is skipped and None is returned. The appointment is not deleted (it is still in list_appointments()), and Appointment.cancel works correctly (status is CANCELLED). The service correctly turns None into LookupError, which is why the error appears in services.py.
 - Smallest justified fix / diff / why other behaviour is preserved: remove the cancelled-status filter so the lookup returns any stored appointment with the trimmed ID. Blank and non-string IDs still raise ValueError, unknown IDs still return None (LookupError in the service), and cancellation still allows only SCHEDULED to CANCELLED.
-- Repair SHA / focused verification result: Included in commit "Final stage 08" [TO FILL: SHA]. test_f8_02_cancelled_appointment_still_found passes, including repeated cancellation raising ValueError with status still CANCELLED; full suite 61 passed.
+- Repair SHA / focused verification result: Included in commit "Final stage 08" ea5abca. test_f8_02_cancelled_appointment_still_found passes, including repeated cancellation raising ValueError with status still CANCELLED; full suite 61 passed.
 
 ## E. Human-first hypotheses
 
@@ -187,19 +187,19 @@ Smell and exact location: Magic status string in project/smartcare/data_store.py
 Small proposed structural change / why justified: Compare with the existing enum, `appointment.status is AppointmentStatus.SCHEDULED`. The rest of the project uses the enum; a raw string can drift from the enum value without any error and hides that this is a status rule.
 External behaviour to preserve / relevant tests: Only SCHEDULED appointments conflict; cancelled slots can be rebooked; same-practitioner conflict raises ValueError; different practitioners are allowed. Protected by test_regressions.py, test_starter.py::test_conflict_rule_and_different_practitioner and the booking and rebooking tests in test_booking_and_cancellation.py and test_services.py.
 Before result: see G, full passing suite.
-Actual change / diff / separate refactor SHA: one line in has_practitioner_conflict, `status.value == "scheduled"` → `status is AppointmentStatus.SCHEDULED` (AppointmentStatus was already imported). The method docstrings removed during preparation were restored. Included in commit "Final stage 08" [TO FILL: SHA]
+Actual change / diff / separate refactor SHA: one line in has_practitioner_conflict, `status.value == "scheduled"` → `status is AppointmentStatus.SCHEDULED` (AppointmentStatus was already imported). The method docstrings removed during preparation were restored. Included in commit "Final stage 08" ea5abca
 Focused and full after-refactor commands / working directory / results / evidence: `python3 -m pytest -q tests/test_regressions.py tests/test_starter.py` in project/ → 10 passed; `python3 -m pytest -q` → 61 passed, the same as before the refactor.
 Result — accepted, revised or rejected / reason / behaviour-preservation conclusion: Accepted. The same 61 tests pass before and after, including conflict, rebooking and cancelled-history checks, so behaviour is preserved and the rule now uses the project's own status type.
 
 ## I. Git, human review and integration
 
-Issues for both defects / refactor scope and owners: [TO FILL: issue links, or "tracked in this record and the PR" if no separate issues were created]; owner Kamalpreet Singh.
-Branch / prepared, repair and refactor checkpoints: [link B/C/D/H]
-PR link and another member's reviewer identity: [TO FILL: PR link]; reviewer [TO FILL]
-Key human feedback, difference from Copilot findings and response/outcome: [TO FILL]
-Actual review approval / merge evidence: [TO FILL]
-Integrated code SHA and team pull/retest command / working directory / result: [TO FILL: merge SHA]; `git switch main`, `git pull`, then `python3 -m pytest -q` in project/ → [TO FILL]
-Evidence-only later SHA / explanation if different: [TO FILL if the record is updated after the merge]
+Issues for both defects / refactor scope and owners: No separate issues were created; both defects and the refactor are tracked in this record and PR #9; owner Kamalpreet Singh.
+Branch / prepared, repair and refactor checkpoints: debug/stage08. Prepared faulty state 5b95cb1; both repairs, the regression tests and the refactor were committed together in ea5abca ("Final stage 08"), so the repair and refactor steps are recorded in sections C, D, G and H rather than as separate commits.
+PR link and another member's reviewer identity: https://github.com/Dillan-Rajanayagam1/st1-assignment-3/pull/9; no other member reviewed the PR before merge
+Key human feedback, difference from Copilot findings and response/outcome: No human review feedback was recorded on the PR.
+Actual review approval / merge evidence: No approval was recorded. PR #9 was merged by the author (kamal824) as merge commit a644dc6e25af3b77b220727280ec82cdc3793af9. This is a recorded process gap.
+Integrated code SHA and team pull/retest command / working directory / result: a644dc6e25af3b77b220727280ec82cdc3793af9; Kamalpreet Singh ran `git switch main`, `git pull`, then `python3 -m pytest -q` in project/ → 61 passed. The debug/stage08 branch was then deleted locally and on GitHub.
+Evidence-only later SHA / explanation if different: This record was updated with the SHAs above in a later evidence-only commit after a644dc6; the tested code is a644dc6.
 Each member's substantive contribution and artefact: Kamalpreet Singh — branch preparation with the tool, regression tests, both repairs, refactor and this record. [TO FILL: Dillan, Kyle and Andy]
 
 ## J. Required reflections
@@ -253,7 +253,7 @@ Response: Diagnose before you fix: reproduce, form and test a hypothesis, make t
 ## L. Completion and handover
 
 - [x] Existing project, earlier tests and stage records preserved.
-- [ ] Passing Stage 7 SHA and safe preparation details recorded.
+- [x] Passing Stage 7 SHA and safe preparation details recorded.
 - [x] Both defects reproduced with meaningful failing tests.
 - [ ] Both human hypotheses recorded before Copilot; actual suggestions evaluated with evidence.
 - [x] Supported causes and minimal repairs explained; focused and full regression results recorded.
@@ -264,6 +264,6 @@ Response: Diagnose before you fix: reproduce, form and test a hypothesis, make t
 - [ ] Same project and full suite ready for Stage 9 after Stage 8 integration, verification and recording.
 
 Verified integrated code SHA / result: see I.
-Submitted SHA and evidence-only difference if any: [TO FILL]
-Unresolved issues or incomplete checks / owner / next action: Human-first hypotheses (E), Copilot review (F), reflection 1 and the human PR review (I) must be completed by the group; owner Kamalpreet Singh with the reviewer.
+Submitted SHA and evidence-only difference if any: Tested integrated code a644dc6e25af3b77b220727280ec82cdc3793af9; the following commit only adds evidence to this record.
+Unresolved issues or incomplete checks / owner / next action: Human-first hypotheses (E), the Copilot review (F) and reflection 1 are still to be completed by Kamalpreet Singh. PR #9 had no another-member review before merge.
 Handover note: Both defects are repaired with regression tests, one refactor is complete and the full suite passes (61). Stage 9 can start after this branch is reviewed, merged and verified on main.
