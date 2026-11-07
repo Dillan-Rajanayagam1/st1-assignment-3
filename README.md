@@ -9,9 +9,9 @@ Baseline: Stage 6 foundation, 2026 revision 2. This starter deliberately leaves 
 - Member names, GitHub usernames and UG/PG cohorts: Dillan Rajanayagam (Dillan-Rajanayagam1, UG), Kyle Carasig (KhenZ07, UG), Andy Lieu (Andy-Lieu, UG), Kamalpreet Singh (kamal824, UG)
 - Shared repository URL: https://github.com/Dillan-Rajanayagam1/st1-assignment-3
 - Latest completed stage: Stage 9 (common UG scope)
-- Verified code SHA: see the Stage 9 record, section H
+- Verified code SHA: 911438106f9ea1b94a4c5a32c245f1618d5f85a2 (Stage 9, merge of PR #10)
 - Test command, working directory and observed result: `python3 -m pytest -q` in project/ → 89 passed
-- Final submitted SHA, if different from tested code SHA: [complete; explain evidence-only changes]
+- Final submitted SHA, if different from tested code SHA: the next commit only records evidence in README.md and the Stage 9 record; tested code is 9114381
 
 Do not put student IDs, private peer ratings, credentials or personal contact details here.
 

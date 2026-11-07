@@ -139,22 +139,22 @@ Responsibility check: explain how domain invariants, shared-store collections, s
 
 ## H. Review, completion and common handover
 
-Issues and bounded branches: <!-- links -->
-PR/diff and another-member human reviewer: <!-- actual links/name -->
+Issues and bounded branches: No separate issues were created; the work was done on one bounded branch, feature/stage09, with commit 702f471 ("Final stage 09"), deleted after merge.
+PR/diff and another-member human reviewer: https://github.com/Dillan-Rajanayagam1/st1-assignment-3/pull/10. No other member reviewed the PR before it was merged by the author (kamal824); this is a recorded process gap.
 Review responses and Copilot comparison: Section E
-Integrated common Stage 9 SHA: <!-- complete -->
-Full regression command, working directory, actual count/result and evidence: <!-- complete -->
+Integrated common Stage 9 SHA: 911438106f9ea1b94a4c5a32c245f1618d5f85a2 (merge of PR #10)
+Full regression command, working directory, actual count/result and evidence: Kamalpreet Singh ran `git switch main`, `git pull`, then `python3 -m pytest -q` in project/ on the merged main → 89 passed. `python3 main.py --interactive` starts the menu and exits cleanly with 0.
 README run instructions and scope/limitations: project/README.md (commands, menu options and limitations) and the root README.md group index
-Unresolved issues and support/action: <!-- complete -->
+Unresolved issues and support/action: No open code issues; all starter TODOs are complete. Process gap: PR #10 had no another-member review before merge. Other members still need to pull main, rerun the suite and add their contribution notes. Owner: Kamalpreet Singh.
 UG common candidate / PG future branch plan: All members are UG, so the integrated Stage 9 SHA is the common candidate protected for Stage 12. Stages 10 and 11 are PG-only and not applicable.
 
 - [x] Query contracts, purity, new lists and named-key ordering verified.
 - [x] Service empty/unknown/invalid cases and cancellation history verified.
 - [x] Every console command and invalid-input recovery demonstrated.
-- [ ] Query and workflow tests plus all previous tests pass; actual evidence linked.
+- [x] Query and workflow tests plus all previous tests pass; actual evidence linked.
 - [ ] Human design, Copilot critique, review and integration recorded honestly.
 - [x] Reflections and ten formative responses completed.
 - [x] README updated; earlier code/tests/records preserved.
-- [ ] Common SHA protected for UG Stage 12; PG Stage 10/11 work deferred until approved.
+- [x] Common SHA protected for UG Stage 12; PG Stage 10/11 work deferred until approved.
 
 No persistence, rescheduling or assurance implementation is part of Stage 9. UG: 6→7→8→9→12. PG: 6→7→8→9→10→11→12. Mixed groups keep one repository and protect the common candidate.
