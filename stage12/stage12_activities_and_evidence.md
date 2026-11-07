@@ -42,10 +42,10 @@ Tutorial activity 2 and actual readiness matrix. Add exact requirement/acceptanc
 
 | Suite/scope | Environment/version | Working directory and command | Tested SHA | Actual result | Evidence link |
 |---|---|---|---|---|---|
-| Complete common | Python 3.15.1 (macOS) and 3.13.18 (clean venv), pytest 8.3.5 | project/: `python3 -m pytest -q` | [TO FILL: merge SHA of the Stage 12 PR] | 89 passed | Section F fresh-clone run and the PR description |
+| Complete common | Python 3.15.1 (macOS) and 3.13.18 (clean venv), pytest 8.3.5 | project/: `python3 -m pytest -q` | a73061d56b50d7e995687d001b36d55ba68d874e | 89 passed | Section F fresh-clone run and the PR description |
 | Complete PG if applicable | Not applicable — all members are UG, so the PG pathway was not taken. | — | — | — | — |
 | Affected focused checks after correction | Python 3.13.18, pytest 8.3.5 | project/: `python3 -m pytest -q tests/test_regressions.py tests/test_services.py` | release/stage12 before merge | 29 passed | Section H |
-| Full integrated recheck | Python 3.15.1, pytest 8.3.5 | project/: `python3 -m pytest -q` after `git switch main` and `git pull` | [TO FILL: merge SHA of the Stage 12 PR] | [TO FILL: result on main after merge] | Section I |
+| Full integrated recheck | Python 3.15.1, pytest 8.3.5 | project/: `python3 -m pytest -q` after `git switch main` and `git pull` | a73061d56b50d7e995687d001b36d55ba68d874e | 89 passed | Section I |
 Prior assertions preserved / reviewed test diff: The release changes no test assertions; the only test-file change is a blank line. All 89 earlier tests are kept.
 Remaining failure / limitation: None failing. Limitations are listed in section G.
 
@@ -149,9 +149,9 @@ Release blockers still open / status: None open.
 
 ## I Git review and integration evidence
 
-Issue / PR / diff links and reviewed SHA: [TO FILL: Stage 12 PR link]; reviewed SHA [TO FILL: release branch commit SHA]
-Independent reviewer / feedback / response: [TO FILL: teammate name, feedback and response, or state that no independent review took place]
-Integration commit / full recheck: [TO FILL: merge SHA of the Stage 12 PR]; full recheck in section C.
+Issue / PR / diff links and reviewed SHA: https://github.com/Dillan-Rajanayagam1/st1-assignment-3/pull/11; reviewed SHA c43b488f84573a1ab456819a315f094abdc56d98 ("Final stage 12")
+Independent reviewer / feedback / response: No independent review took place: no other member reviewed PR #11 before it was merged by the author (kamal824). Recorded as a process gap.
+Integration commit / full recheck: a73061d56b50d7e995687d001b36d55ba68d874e; full recheck in section C.
 Tracked and untracked file inspection / cleanliness: `git status --short` was empty before branching; `git ls-files` shows 25 tracked files plus the Stage 12 additions, with no caches or environments.
 Secrets/staff material/caches/tool-metadata exclusion check: .gitignore excludes .venv, __pycache__, .pytest_cache, .env and .stage8_faults; the Stage 8 tool and its backup were never committed; no secrets or staff material are tracked.
 Candidate recovery plan / known-good SHA: If a release problem is found, return to the Stage 9 common candidate 9114381 or the tagged release commit with `git switch --detach <SHA>`; no history is rewritten.
@@ -161,7 +161,7 @@ Named substantive contributions: Kamalpreet Singh — Stage 6 practitioner looku
 ## J Human release decision
 
 Decision — READY FOR COURSE RELEASE / READY WITH DOCUMENTED LIMITATIONS / NOT YET READY: READY WITH DOCUMENTED LIMITATIONS
-Approver / date / rationale and evidence: Kamalpreet Singh, [TO FILL: date]. All common requirements have passing tests and a reproducible demo; the README was reproduced from a fresh clone; the limitations in section G are documented.
+Approver / date / rationale and evidence: Kamalpreet Singh, 7 November 2026. All common requirements have passing tests and a reproducible demo; the README was reproduced from a fresh clone; the limitations in section G are documented.
 What risks remain / conditions / owners: Session-only data and the process gaps recorded in Stages 6–9 (PRs merged without another-member approval). Owner: Kamalpreet Singh.
 Can the team explain the system: Yes: each stage record links the code, tests and decisions, and the viva preparation table in section N covers the main design points.
 Can a change be recovered: Yes: every stage was merged through a pull request with a known SHA, so any change can be found and reverted.
@@ -170,26 +170,26 @@ Common decision / PG decision where different: Common decision as above; no PG d
 
 ## K Final tested release SHA
 
-Exact common tested SHA: [TO FILL: merge SHA of the Stage 12 PR]
+Exact common tested SHA: a73061d56b50d7e995687d001b36d55ba68d874e
 Exact PG tested SHA or not applicable: Not applicable — all members are UG, so the PG pathway was not taken.
-Final submitted SHA / repository URL: [TO FILL: final submitted SHA] / https://github.com/Dillan-Rajanayagam1/st1-assignment-3
-Evidence-only later commit and difference explanation: [TO FILL: if the record is updated after the merge, that commit only adds evidence]
+Final submitted SHA / repository URL: The commit that adds this final record update, on main after the tag v1.0 (evidence-only) / https://github.com/Dillan-Rajanayagam1/st1-assignment-3
+Evidence-only later commit and difference explanation: After the merge a73061d (tagged v1.0), one later commit only fills in this record's SHAs and dates; no code or tests change, so the tested code is a73061d. A file cannot contain the SHA of the commit that adds it.
 Executable changes after testing and re-verification: None after testing; the final integrated recheck in section C confirms the tested code.
-Source ZIP name / SHA correspondence / extracted comparison: [TO FILL: ZIP name, e.g. smartcare_v1.0_<sha>.zip, created with git archive from the submitted commit]
+Source ZIP name / SHA correspondence / extracted comparison: smartcare_v1.0.zip, created with `git archive -o smartcare_v1.0.zip HEAD` from the final submitted commit on main. It contains the root README.md, .gitignore, project/ and all stage folders; git archive excludes .git and untracked files such as .venv, caches and .stage8_faults. Its project/ code is identical to the tested commit a73061d.
 
 
 ## L Submission package verification
 
-- [ ] Feature freeze and scoped requirements traced.
-- [ ] Applicable full regressions, integrated demo and invalid paths verified.
-- [ ] Architecture/code quality and final AI/dependency checks complete.
+- [x] Feature freeze and scoped requirements traced.
+- [x] Applicable full regressions, integrated demo and invalid paths verified.
+- [x] Architecture/code quality and final AI/dependency checks complete.
 - [ ] Root README and project/README reproduced by another verifier.
-- [ ] Release notes, technical debt and limitations visible.
+- [x] Release notes, technical debt and limitations visible.
 - [ ] Independent human review, integration and release decision recorded.
-- [ ] Repository URL accessible to marker and exact candidate SHA identified.
+- [x] Repository URL accessible to marker and exact candidate SHA identified.
 - [ ] One source ZIP from submitted commit with root README.md and .gitignore.
-- [ ] project/ source and all accumulated applicable tests included.
-- [ ] All common applicable stage records included; Stage 10/11 records completed only for the PG pathway. UG-only groups retain supplied PG-only templates unchanged as intentionally not applicable, without fabricated N/A responses.
+- [x] project/ source and all accumulated applicable tests included.
+- [x] All common applicable stage records included; Stage 10/11 records completed only for the PG pathway. UG-only groups retain supplied PG-only templates unchanged as intentionally not applicable, without fabricated N/A responses.
 - [ ] No .git, environments, caches, secrets, real data, staff solutions or private QA in ZIP.
 - [ ] No Stage 8 utility/backups/recovery metadata or duplicate application in ZIP.
 - [ ] Mixed-group common protection and candidate upload routing checked.
