@@ -15,6 +15,7 @@ from smartcare.services import (
 
 WHEN = datetime(2026, 10, 1, 9)
 
+
 def setup_services() -> tuple[
     SmartCareDataStore,
     PatientService,

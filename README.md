@@ -8,10 +8,10 @@ Baseline: Stage 6 foundation, 2026 revision 2. This starter deliberately leaves 
 - Group and tutorial: Tue 1:30 - 3:30 Group 5
 - Member names, GitHub usernames and UG/PG cohorts: Dillan Rajanayagam (Dillan-Rajanayagam1, UG), Kyle Carasig (KhenZ07, UG), Andy Lieu (Andy-Lieu, UG), Kamalpreet Singh (kamal824, UG)
 - Shared repository URL: https://github.com/Dillan-Rajanayagam1/st1-assignment-3
-- Latest completed stage: Stage 9 (common UG scope)
-- Verified code SHA: 911438106f9ea1b94a4c5a32c245f1618d5f85a2 (Stage 9, merge of PR #10)
+- Latest completed stage: Stage 12 release, SmartCare v1.0 (common UG scope)
+- Verified code SHA: see the Stage 12 record, section K (Stage 9 common candidate: 911438106f9ea1b94a4c5a32c245f1618d5f85a2)
 - Test command, working directory and observed result: `python3 -m pytest -q` in project/ → 89 passed
-- Final submitted SHA, if different from tested code SHA: the next commit only records evidence in README.md and the Stage 9 record; tested code is 9114381
+- Final submitted SHA, if different from tested code SHA: see the Stage 12 record, section K
 
 Do not put student IDs, private peer ratings, credentials or personal contact details here.
 
@@ -42,7 +42,7 @@ Complete the supplied Stage 12 record when you reach Stage 12. UG releases the c
 - [Stage 9 activities and evidence](stage09/stage09_activities_and_evidence.md)
 - [Stage 10 PG activities and evidence](stage10_pg/stage10_activities_and_evidence.md)
 - [Stage 11 PG activities and evidence](stage11_pg/stage11_activities_and_evidence.md)
-- [Stage 12 activities and evidence](stage12/stage12_activities_and_evidence.md)
+- [Stage 12 activities and evidence](stage12/stage12_activities_and_evidence.md) — [demo input](stage12/demo_input.txt) and [demo output](stage12/demo_output.txt)
 
 Git commands in the practical guide run from this root. Application commands run from project/:
 
@@ -53,4 +53,4 @@ python -m pytest
 cd ..
 ```
 
-Use the approved environment described in the Git/GitHub group guide. The verified baseline is Python 3.13 with pytest 8.3.5. GitHub Copilot is the nominated assistant; verify significant output and record required decisions. Use synthetic data only. Use each supplied record only when you reach that stage in the applicable sequence.
+Use the approved environment described in the Git/GitHub group guide. The verified baseline is Python 3.13 with pytest 8.3.5; the release was also run on Python 3.15.1. On macOS use `python3`. GitHub Copilot is the nominated assistant; verify significant output and record required decisions. Use synthetic data only. Use each supplied record only when you reach that stage in the applicable sequence.

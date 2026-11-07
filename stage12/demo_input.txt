@@ -1,0 +1,78 @@
+1
+P1
+Alex Example
+2
+D1
+Taylor Example
+General practice
+2
+D2
+Morgan Example
+Physiotherapy
+3
+P1
+4
+D2
+5
+A1
+P1
+D1
+2026-10-01 09:00
+5
+A2
+P1
+D1
+2026-10-01 09:00
+5
+A3
+P1
+D2
+2026-10-01 09:00
+5
+A4
+P1
+D1
+2026-10-01 08:30
+6
+A1
+7
+A1
+6
+A1
+6
+A9
+8
+D1
+
+8
+D1
+scheduled
+8
+D9
+
+8
+D2
+cancelled
+5
+A5
+P1
+D1
+01/10/2026 9am
+5
+A5
+P1
+D1
+2026-02-30 09:00
+8
+D1
+booked
+9
+5
+A5
+P1
+D1
+2026-10-01 09:00
+8
+D1
+
+0
