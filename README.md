@@ -5,12 +5,12 @@ Baseline: Stage 6 foundation, 2026 revision 2. This starter deliberately leaves 
 
 ## Group index
 
-- Group and tutorial: [complete]
-- Member names, GitHub usernames and UG/PG cohorts: [complete]
-- Shared repository URL: [complete]
-- Latest completed stage: [complete]
-- Verified code SHA: [complete]
-- Test command, working directory and observed result: [complete]
+- Group and tutorial: Tue 1:30 - 3:30 Group 5
+- Member names, GitHub usernames and UG/PG cohorts: Dillan Rajanayagam (Dillan-Rajanayagam1, UG), Kyle Carasig (KhenZ07, UG), Andy Lieu (Andy-Lieu, UG), Kamalpreet Singh (kamal824, UG)
+- Shared repository URL: https://github.com/Dillan-Rajanayagam1/st1-assignment-3
+- Latest completed stage: Stage 9 (common UG scope)
+- Verified code SHA: see the Stage 9 record, section H
+- Test command, working directory and observed result: `python3 -m pytest -q` in project/ → 89 passed
 - Final submitted SHA, if different from tested code SHA: [complete; explain evidence-only changes]
 
 Do not put student IDs, private peer ratings, credentials or personal contact details here.
